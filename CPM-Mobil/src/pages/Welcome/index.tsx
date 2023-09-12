@@ -1,20 +1,22 @@
 import React from "react";
-import { Text, View, StyleSheet, Image, TouchableOpacity } from "react-native";
+import { Text, View, Image, TouchableOpacity } from "react-native";
 import * as Animatable from "react-native-animatable";
 import { useNavigation } from "@react-navigation/native";
 import { StackTypes } from "../../routes";
-import { WelcomeStyles } from "./styles";
 
 export function Welcome() {
   const navigation = useNavigation<StackTypes>();
 
-  const styles = WelcomeStyles;
   return (
-    <View style={styles.container}>
-      <View style={styles.containerLogo}>
+    <View
+      className="flex-1 bg-teal-600"
+    >
+      <View
+        className="flex-2 bg-teal-600 justify-center items-center"
+      >
         <Animatable.Image
           source={require("../../assets/logo.png")}
-          style={{ width: "100%" }}
+          className="w-full top-1/2"
           resizeMode="contain"
           animation="flipInY"
         />
@@ -22,19 +24,24 @@ export function Welcome() {
       <Animatable.View
         animation="fadeInUp"
         delay={1000}
-        style={styles.containerForm}
+        className="flex-3 bg-white rounded-tl-2xl rounded-tr-2xl p-5 absolute bottom-0 w-full"
       >
-        <Text style={styles.title}>
-        Monitoriza, organiza tus gastos desde cualquier lugar!
+        <Text
+          className="text-2xl font-bold mt-8 mb-4"
+        >
+          Monitoriza, organiza tus gastos desde cualquier lugar!
         </Text>
-        <Text style={styles.text}>Inicia sesión para comenzar</Text>
+        <Text className="text-gray-400">Inicia sesión para comenzar</Text>
         <TouchableOpacity
-          style={styles.button}
+          className="bg-teal-600 rounded-full py-3 mt-8 w-3/5 self-center"
           onPress={() => navigation.navigate("SignIn")}
         >
-          <Text style={styles.buttonText}>Ingresar</Text>
+          <Text className="text-white text-xl font-bold text-center">
+            Ingresar
+          </Text>
         </TouchableOpacity>
       </Animatable.View>
+      
     </View>
   );
 }

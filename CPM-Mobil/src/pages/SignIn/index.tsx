@@ -7,33 +7,27 @@ import {
   TouchableOpacity,
 } from "react-native";
 import * as Animatable from "react-native-animatable";
-import { SignInStyles } from "./styles";
 import { StackTypes } from "../../routes";
 import { useNavigation } from "@react-navigation/native";
-
-const styles = SignInStyles;
 
 export function SignIn() {
   const navigation = useNavigation<StackTypes>();
 
   return (
-    <View style={styles.container}>
-      <Animatable.View animation="fadeInLeft" delay={500} style={styles.header}>
-        <Text style={styles.message}>Bienvenido(a)</Text>
+    <View className='flex-1 bg-teal-600'>
+      <Animatable.View animation="fadeInLeft" delay={500} className='mt-14 mb-8 pl-5'>
+        <Text className='text-white text-2xl font-bold'>Bienvenido(a)</Text>
       </Animatable.View>
-      <Animatable.View animation="fadeInUp" style={styles.containerForm}>
-        <Text style={styles.title}>Email</Text>
-        <TextInput placeholder="Escriba un email" style={styles.input} />
-        <Text style={styles.title}>Contraseña</Text>
-        <TextInput placeholder="Escriba su contraseña" style={styles.input} />
-        <TouchableOpacity style={styles.button}>
-          <Text style={styles.buttonText}>Ingresar</Text>
+      <Animatable.View animation="fadeInUp" className='bg-white rounded-tl-2xl rounded-tr-2xl p-5 flex-1'>
+        <Text className='text-2xl mt-8'>Email</Text>
+        <TextInput placeholder="Escriba un email" className='border-b border-gray-400 h-10 mb-12 text-xl' />
+        <Text className='text-2xl'>Contraseña</Text>
+        <TextInput placeholder="Escriba su contraseña" className='border-b border-gray-400 h-10 mb-12 text-xl' />
+        <TouchableOpacity className='bg-teal-600 rounded-md py-2 mt-0 w-full self-center' onPress={() => navigation.navigate("Login")}>
+          <Text className='text-white text-xl font-bold text-center'>Ingresar</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.buttonRegister}>
-          <Text
-            style={styles.registerButtonText}
-            onPress={() => navigation.navigate("Login")}
-          >
+        <TouchableOpacity className='mt-5 self-center'>
+          <Text className='text-gray-400' onPress={() => navigation.navigate("Login")}>
             ¿No tienes una cuenta? Registro
           </Text>
         </TouchableOpacity>

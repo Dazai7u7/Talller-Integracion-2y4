@@ -1,40 +1,37 @@
 import React, { useState } from "react";
 import { Text, View, TextInput, TouchableOpacity } from "react-native";
 import * as Animatable from "react-native-animatable";
-import { SignInStyles } from "./styles";
+import { useNavigation } from "@react-navigation/native";
+import { StackTypes } from "../../routes";
 import { Ionicons } from "@expo/vector-icons";
-import { phoneMask } from "../../utils/phoneNumberMask";
-import MaskInput, { Masks } from "react-native-mask-input";
-
 export function Login() {
-  const styles = SignInStyles;
+  const navigation = useNavigation<StackTypes>();
   const [hidePass, setHidePass] = useState(true);
-  const [phoneNumber, setPhoneNumber] = React.useState("");
 
   return (
-    <View style={styles.container}>
-      <Animatable.View animation="fadeInLeft" delay={500} style={styles.header}>
-        <Text style={styles.message}>Registrate!</Text>
+    <View className="flex-1 bg-teal-600">
+      <Animatable.View animation="fadeInLeft" delay={500} className="mt-14 mb-8 pl-5">
+        <Text className="text-white text-2xl font-bold">Registrate!</Text>
       </Animatable.View>
-      <Animatable.View animation="fadeInUp" style={styles.containerForm}>
+      <Animatable.View animation="fadeInUp" className="bg-white rounded-tl-2xl rounded-tr-2xl p-5 flex-1">
         <View>
-          <Text style={styles.title}>Email</Text>
+          <Text className="text-2xl mt-8">Email</Text>
           <TextInput
             placeholder="ejemplo123@gmail.com"
-            style={styles.input}
+            className="border-b border-gray-400 h-10 mb-12 text-xl"
             autoCorrect={false}
             keyboardType="email-address"
           />
-          <Text style={styles.title}>Contraseña</Text>
-          <View style={styles.password}>
+          <Text className="text-2xl">Contraseña</Text>
+          <View className="border-b border-gray-400">
             <TextInput
               placeholder="* * * * *"
               autoCorrect={false}
               secureTextEntry={hidePass ? true : false}
-              style={styles.passwordInput}
+              className="w-full text-xl"
             />
             <TouchableOpacity
-              style={styles.icon}
+              className="absolute right-0"
               onPress={() => setHidePass(!hidePass)}
             >
               {hidePass ? (
@@ -45,8 +42,8 @@ export function Login() {
             </TouchableOpacity>
           </View>
         </View>
-        <TouchableOpacity style={styles.button}>
-          <Text style={styles.buttonText}>Crear cuenta</Text>
+        <TouchableOpacity className="bg-teal-600 rounded-md py-2 mt-14 w-full self-center" onPress={() => navigation.navigate("SignIn")}>
+          <Text className="text-white text-xl font-bold text-center">Crear cuenta</Text>
         </TouchableOpacity>
       </Animatable.View>
     </View>
