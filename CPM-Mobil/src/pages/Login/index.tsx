@@ -42,7 +42,7 @@ export function Login() {
             </TouchableOpacity>
           </View>
         </View>
-        <TouchableOpacity className="bg-teal-600 rounded-md py-2 mt-14 w-full self-center" onPress={() => navigation.navigate("SignIn")}>
+        <TouchableOpacity className="bg-teal-600 rounded-md py-2 mt-14 w-full self-center" onPress={() => navigation.navigate("home")}>
           <Text className="text-white text-xl font-bold text-center">Crear cuenta</Text>
         </TouchableOpacity>
       </Animatable.View>
