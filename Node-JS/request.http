@@ -1,0 +1,9 @@
+###
+POST http://localhost:9000/api/usuarios HTTP/1.1
+Content-Type: application/json
+
+{
+    "nombre": "rodrigo gutierrez",
+    "email": "rodrigo@gmail.com",
+    "contraseña": "hola"
+}
