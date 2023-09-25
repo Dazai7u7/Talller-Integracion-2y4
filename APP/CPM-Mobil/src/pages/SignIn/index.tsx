@@ -23,7 +23,7 @@ export function SignIn() {
         <TextInput placeholder="Escriba un email" className='border-b border-gray-400 h-10 mb-12 text-xl' />
         <Text className='text-2xl'>Contraseña</Text>
         <TextInput placeholder="Escriba su contraseña" className='border-b border-gray-400 h-10 mb-12 text-xl' />
-        <TouchableOpacity className='bg-teal-600 rounded-md py-2 mt-0 w-full self-center' onPress={() => navigation.navigate("Login")}>
+        <TouchableOpacity className='bg-teal-600 rounded-md py-2 mt-0 w-full self-center' onPress={() => navigation.navigate("home")}>
           <Text className='text-white text-xl font-bold text-center'>Ingresar</Text>
         </TouchableOpacity>
         <TouchableOpacity className='mt-5 self-center'>
