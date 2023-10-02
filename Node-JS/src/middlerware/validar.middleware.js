@@ -4,7 +4,9 @@ const validarSchema = (schema) => (req, res, next) => {
         next();
     } catch (error) {
         const errores = error.errors.map(e => e.message);
-        res.status(400).json({ errors: errores });
+        res
+            .status(400)
+            .json(error.errors.map((error) => error.message));
     }
 };
 
