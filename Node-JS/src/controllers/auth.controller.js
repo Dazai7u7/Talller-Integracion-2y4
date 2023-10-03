@@ -1,6 +1,8 @@
 const usuario = require('../models/usuario.model.js');
 const bcrypt = require('bcryptjs');
 const crearTokenAcceso = require('../libs/jwt.js');
+const jwt = require('jsonwebtoken');
+const TOKEN_SECRET = require('../config.js');
 
 const registro = async (req, res) => {
     const { nombre, email, password } = req.body;
@@ -103,9 +105,29 @@ const handleProfileError = (res, error) => {
     res.status(500).json({ message: "Error al obtener el perfil del usuario" });
 };
 
+const verifyToken = async (req, res) => {
+    const {token} = req.cookies
+
+    if (!token) return res.status(401).json({ message: "No autorizado" });
+
+    jwt.verify(token, TOKEN_SECRET, async (err, usuario) => {
+        if (err) return res.status(401).json({ message: "No autorizado"});
+
+        const usuarioEncontrado = await usuario.findById(usuario.id)
+        if (!usuarioEncontrado) return res.status(401).json({ message: "No autorizado" });
+
+        return res.json({
+            id: usuarioEncontrado._id,
+            nombre: usuarioEncontrado.nombre,
+            email: usuarioEncontrado.email,
+        });
+    });
+};
+
 module.exports = {
     registro,
     login,
     logout,
-    profile
+    profile,
+    verifyToken
 };
