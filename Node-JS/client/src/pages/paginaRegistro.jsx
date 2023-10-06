@@ -22,8 +22,8 @@ function PaginaRegistro() {
 
     return (
 
-        <div className="flex h-[calc(100vh-100px)] items-center justify-center">
-            <div className="bg-zinc-800 max-w-md w-full p-10 rounded-md">
+        <div className="bg-slate-200 flex h-[calc(100vh-100px)] items-center justify-center">
+            <div className="bg-white max-w-md w-full p-10 rounded-md">
                 {
                     RegistroErrors.map((error, i) => (
                         <div className="bg-red-500 p-2 text-white" key={i}>
@@ -32,11 +32,11 @@ function PaginaRegistro() {
                     ))
                 }
 
-                <h1 className="text-2xl font-bold">Registro</h1>
+                <h1 className="text-black text-2xl font-bold">Registro</h1>
 
                 <form onSubmit={onSubmit}>
                     <input type="text" {...register('nombre', {required: true})}
-                        className="w-full bg-zinc-700 text-white px-4 py-2 rounded-md my-2"
+                        className="w-full bg-white text-black px-4 py-2 rounded-md my-2 border border-black focus:outline-teal-500"
                         placeholder="Nombre" 
                     />
                     {
@@ -45,7 +45,7 @@ function PaginaRegistro() {
                         )
                     }
                     <input type="email" {...register('email', {required: true})}
-                        className="w-full bg-zinc-700 text-white px-4 py-2 rounded-md my-2"
+                        className="w-full bg-white text-black px-4 py-2 rounded-md my-2 border border-black focus:outline-teal-500"
                         placeholder="Correo"
                     />
                     {
@@ -54,7 +54,7 @@ function PaginaRegistro() {
                         )
                     }
                     <input type="password" {...register('password', {required: true})}
-                        className="w-full bg-zinc-700 text-white px-4 py-2 rounded-md my-2"
+                        className="w-full bg-white text-black px-4 py-2 rounded-md my-2 border border-black focus:outline-teal-500"
                         placeholder="Contraseña"
                     />
                     {
@@ -62,11 +62,11 @@ function PaginaRegistro() {
                             <p className="text-red-500">Una contraseña es requerida</p>
                         )
                     }
-                    <button type="submit">Registrar</button>
+                    <button class="bg-teal-500 p-2 rounded-lg hover:bg-white hover:text-black transition-colors duration-300 mt-2" type="submit">Registrar</button>
                 </form>
 
-                <p className="flex gap-x-2 justify-between">
-                        ¿Ya tienes una cuenta? <Link to="/login" className="text-sky-500">Ingresar</Link>
+                <p className="text-black flex gap-x-2 justify-between">
+                        ¿Ya tienes una cuenta? <Link to="/login" className="bg-teal-500 p-2 rounded-lg hover:bg-white hover:text-black transition-colors duration-300 text-white">Ingresar</Link>
                 </p>
             </div>
         </div>

@@ -19,8 +19,8 @@ app.use(express.json());
 
 app.use(cookieParser());
 
-app.use('/api', router);
 
+app.use('/api', router);
 app.use('/api', router2);
 
 module.exports = app;
