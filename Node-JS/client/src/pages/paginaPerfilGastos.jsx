@@ -119,15 +119,4 @@ function PaginaPerfilGastos  ()  {
 };
 
 export default PaginaPerfilGastos;
-=======
-function PaginaPerfilGastos() {
-    
-    return (
-        <div>
-            Perfil
-        </div>
-    )
-}
 
-export default PaginaPerfilGastos;
->>>>>>> Stashed changes
