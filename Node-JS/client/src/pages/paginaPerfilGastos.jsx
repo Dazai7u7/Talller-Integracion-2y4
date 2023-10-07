@@ -1,4 +1,3 @@
-<<<<<<< Updated upstream
 import { useState } from "react";
 
 function PaginaPerfilGastos  ()  {
