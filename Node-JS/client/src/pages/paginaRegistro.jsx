@@ -16,7 +16,7 @@ function PaginaRegistro() {
     const navigate = useNavigate();
 
     useEffect(() => {
-        if (isAuthenticated) navigate('/perfil-gastos');
+        if (isAuthenticated) navigate('/');
     }, [isAuthenticated]);
 
     const onSubmit = handleSubmit(async (values) => {
