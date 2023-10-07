@@ -1,6 +1,8 @@
 import { useForm } from "react-hook-form";
 import { useAuth } from "../context/AuthContext";
 import { Link } from "react-router-dom";
+import HeaderNoLog from '../Complements/HeaderNoLog.jsx';
+import FooterConten from '../Complements/Footer.jsx';
 
 function PaginaLogin() {
     const {
@@ -18,7 +20,11 @@ function PaginaLogin() {
     return (
         <div class=" bg-slate-200">
 
-            <div className="flex h-[calc(100vh-100px)] items-center justify-center">
+            <header>
+                <HeaderNoLog/>
+            </header>
+
+            <div className="flex mt-32 items-center justify-center">
 
                 <div className="bg-white max-w-md w-full p-10 rounded-md shadow-lg">
                     {LoginErrors.map((error, i) => (
@@ -50,12 +56,18 @@ function PaginaLogin() {
                         </button>
                     </form>
                         
-                    <p className="flex gap-x-2 justify-between mt-4 text-black">
-                        ¿No estas registrado aun? <Link to="/registro" className="h-7 w-20 text-center border border-white rounded duration-300 text-white bg-teal-500 hover:text-teal-500 hover:border-teal-500 hover:bg-white hover:scale-105">
-                            Registrate</Link>
+                    <p className="flex gap-x-2 justify-between mt-4 text-black items-center">
+                        ¿No estas registrado aun?
+                        <Link to="/registro" className="text-white border border-white bg-teal-500 rounded-md w-20 h-8 hover:scale-110 ease-in-out duration-300 hover:text-teal-500 hover:border-teal-500 hover:bg-white flex items-center justify-center">
+                            Registrate
+                        </Link>
                     </p>
                 </div> 
             </div>
+
+            <footer>
+                <FooterConten/>
+            </footer>
         </div>
     );
 }

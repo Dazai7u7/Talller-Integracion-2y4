@@ -14,6 +14,10 @@ export function HeaderNoLog() {
                     {/* Nav que redirige a la página de registro e inicio de sesion */}
 
                     <nav className="px-8 text-xl justify-between">
+                        <Link to="/" className="mx-4 px-4 py-1 text-center border border-white rounded text-white duration-300 bg-teal-500 hover:text-teal-500 hover:border-teal-500 hover:bg-white">
+                            Home
+                        </Link>
+
                         <Link to="/login" className="mx-4 px-4 py-1 text-center border border-white rounded text-white duration-300 bg-teal-500 hover:text-teal-500 hover:border-teal-500 hover:bg-white">
                             Inicia Sesion
                         </Link>
