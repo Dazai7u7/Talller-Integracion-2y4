@@ -1,7 +1,7 @@
 function PaginaFormGastos() {
     return (
         <div>
-            Home
+            Agregar gastos
         </div>
     )
 }

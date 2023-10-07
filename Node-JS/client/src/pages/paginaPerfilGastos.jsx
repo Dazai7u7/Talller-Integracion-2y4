@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 import { useState } from "react";
 
 function PaginaPerfilGastos  ()  {
@@ -119,3 +120,15 @@ function PaginaPerfilGastos  ()  {
 };
 
 export default PaginaPerfilGastos;
+=======
+function PaginaPerfilGastos() {
+    
+    return (
+        <div>
+            Perfil
+        </div>
+    )
+}
+
+export default PaginaPerfilGastos;
+>>>>>>> Stashed changes
