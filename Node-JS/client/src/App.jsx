@@ -7,6 +7,7 @@ import PaginaPerfilGastos from './pages/paginaPerfilGastos.jsx';
 import PaginaFormGastos from './pages/paginaFormGastos.jsx';
 import PaginaHome from './pages/paginaHome.jsx';
 
+
 import ProtectedRoute from './ProtectedRoute.jsx';
 
 function App() {
@@ -14,7 +15,9 @@ function App() {
     <AuthProvider>
       <BrowserRouter>
         <Routes>
-          <Route path='/' element={<PaginaHome />} />
+          <Route path='/' element={<PaginaHome/>}/>
+          
+
           <Route path='/login' element={<PaginaLogin />} />
           <Route path='/registro' element={<PaginaRegistro />} />
 
