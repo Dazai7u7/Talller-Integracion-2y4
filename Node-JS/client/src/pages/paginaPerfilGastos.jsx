@@ -1,121 +1,58 @@
-import { useState } from "react";
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 
 function PaginaPerfilGastos  ()  {
-  // Estado para almacenar los elementos del presupuesto
-  const [budgetItems, setBudgetItems] = useState([]);
-  // Estado para almacenar la nueva entrada del presupuesto
-  const [newItem, setNewItem] = useState({ description: '', amount: 0 });
-
-  // Función para manejar la entrada de un nuevo elemento
-  const handleAddItem = () => {
-    setBudgetItems([...budgetItems, newItem]);
-    setNewItem({ description: '', amount: 0 });
-  };
-
-  // Función para manejar cambios en la entrada del nuevo elemento
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setNewItem({ ...newItem, [name]: value });
-  };
-
-  // Calcular el total del presupuesto
-  const totalBudget = budgetItems.reduce((total, item) => total + parseFloat(item.amount), 0);
-
-  // Estado para almacenar la categoría seleccionada
-  const [selectedCategory, setSelectedCategory] = useState('');
+    const [monthlyData, setMonthlyData] = useState([]);
+    const [selectedMonth, setSelectedMonth] = useState('Selecciona el mes');
   
-  // Lista de categorías de gastos
-  const categories = ['Comida', 'Transporte', 'Entretenimiento', 'Salud', 'Otros'];
-
-  // Función para manejar cambios en la selección de categoría
-  const handleCategoryChange = (event) => {
-    // Actualiza el estado con la categoría seleccionada
-    setSelectedCategory(event.target.value);
-  };
-    //estado para almacenar presupuesto
-  const [budget, setBudget] = useState(0);
-
-  // Función para agregar presupuesto
-  const addBudget = (amount) => {
-    setBudget(amount);
-  };
-
-  return (
-    <div className="bg-slate-200 flex h-[calc(100vh-100px)] items-center justify-center">
-            <div className="bg-white max-w-md w-full p-10 rounded-md">
-            
-                
-      <h1 className="text-black text-2xl font-bold">Agregar Gastos</h1>
-
-      {/* Formulario para agregar elementos al presupuesto */}
-      <div className="mb-4">
-      <label htmlFor="budgetInput" className="text-black rounded-black "> Presupuesto: </label>
-        <input
-          type="number"
-          id="budgetInput"
-          onChange={(e) => addBudget(parseInt(e.target.value))}
-          className="border p-2 mb-2 text-black"
-        />
- {/* Etiqueta y lista desplegable para seleccionar la categoría */}
- 
-
-      <label className="block text-sm text-black font-semibold mb-2">Nombre del producto:</label>
-        <input
-          type="text"
-          name="description"
-          value={newItem.description}
-          onChange={handleInputChange}
-          className="border p-2 mb-2 text-black"
-        />
-
-
-
-      {/* Mostrar la categoría seleccionada */}
-      <p>Categoría seleccionada: {selectedCategory}</p>
-        <label className="block text-sm text-black font-semibold mb-2">Valor del produto:</label>
-        <input
-          type="number"
-          name="amount"
-          value={newItem.amount}
-          onChange={handleInputChange}
-          className="border p-2 mb-2 text-black"
-        />
-
-        <button
-          type="button"
-          onClick={handleAddItem}
-          className="bg-blue-500 text-black py-2 px-4 rounded"
+    useEffect(() => {
+      // Realiza una solicitud a tu API para obtener datos mensuales
+      // Reemplaza la URL con la URL de tu propia API
+      axios.get(`https://tu-api.com/mensual?mes=${selectedMonth}`)
+        .then(response => {
+          setMonthlyData(response.data);
+        })
+        .catch(error => {
+          console.error('Error al obtener datos mensuales:', error);
+        });
+    }, [selectedMonth]);
+  
+    return (
+      <div className="bg-slate-200 flex h-[calc(100vh-100px)] items-center justify-center">
+        <div className="bg-white max-w-md w-full p-10 rounded-md">
+        <h1 className='text-black text-2xl font-bold'>Gastos mensuales</h1>
+        
+        <label className='text-black' htmlFor="monthSelector">Selecciona un mes :  </label>
+        <select
+          id="monthSelector"
+          value={selectedMonth}
+          onChange={(e) => setSelectedMonth(e.target.value)}
+          className='text-black border p-2 mb-2 border-black'
         >
-          Agregar
-        </button>
-      </div>
+          <option value="Enero">Enero</option>
+          <option value="Febrero">Febrero</option>
+          <option value="Marzo">Marzo</option>
+          <option value="Abril">Abril</option>
+          <option value="Mayo">Mayo</option>
+          <option value="Junio">Junio</option>
+          <option value="Julio">Julio</option>
+          <option value="Agosto">Agosto</option>
+          <option value="Septiembre">Septiembre</option>
+          <option value="Octubre">Octubre</option>
+          <option value="Noviembre">Noviembre</option>
+          <option value="Diciembre">Diciembre</option>
+        </select>
+  
 
-
-
-
-
-      {/* Lista de elementos del presupuesto */}
-      <div className="mb-4">
-        <h2 className="text-xl text-black font-bold mb-2">Lista de Gastos</h2>
+        <h2 className='text-black'>Datos para {selectedMonth}</h2>
         <ul>
-          {budgetItems.map((item, index) => (
-            <li key={index} className="mb-2 text-black">
-              {item.description}: ${item.amount}
-            </li>
+          {monthlyData.map((data, index) => (
+            <li key={index}>{data}</li>
           ))}
         </ul>
       </div>
-
-      {/* Total del presupuesto */}
-                <div>
-                <h2 className="text-black">Resumen</h2>
-        <p className="text-black">Presupuesto: ${budget-totalBudget}</p>
-        <p className="text-black">Total de Compras: ${totalBudget}</p>
-                    <h2 className="text-xl text-black font-bold mb-2">Total de Gastos: ${totalBudget}</h2>
-                </div>
-            </div>
-    </div>
-  );
+      </div>
+    );
 };
 
 export default PaginaPerfilGastos;
