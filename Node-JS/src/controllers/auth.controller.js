@@ -106,7 +106,7 @@ const handleProfileError = (res, error) => {
 };
 
 const verifyToken = async (req, res) => {
-    const {token} = req.cookies
+    const { token } = req.cookies
 
     if (!token) return res.status(401).json({ message: "No autorizado" });
 

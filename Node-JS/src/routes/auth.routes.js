@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const autRequerida = require("../middlerware/validarToken.js");
 const { registro, login, logout, profile, verifyToken } = require('../controllers/auth.controller');
+const autRequerida = require("../middlerware/validarToken.js");
 const validarSchema = require('../middlerware/validar.middleware.js');
 const { registroSchema, loginSchema } = require('../schemas/auth.schema.js');
 
