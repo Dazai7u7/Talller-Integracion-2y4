@@ -10,12 +10,12 @@ const slides = [img1, img2, img3];
 
 function PaginaHome() {
   return (
-    <div className="bg-slate-200">
+    <div className="bg-slate-50 ">
       <header>
         <HeaderNoLog />
       </header>
       <div className="container flex mt-20 justify-between">
-        <div className="mx-10 w-1/2">
+        <div className="mx-8 w-1/2">
           <h1 className="text-4xl text-teal-500">amet consectetur</h1>
           <p className="mt-4 text-black">
             Lorem, ipsum dolor sit amet consectetur adipisicing elit. Adipisci culpa non fuga fugit vel tempore magni
@@ -33,7 +33,8 @@ function PaginaHome() {
             necessitatibus, aliquam alias veritatis totam architecto quisquam soluta
           </p>
         </div>
-        <main className="mx-10">
+
+        <main className="mx-12">
           <div className="max-w-lg">
             <Carrusel>
               {slides.map((s, index) => (
@@ -43,6 +44,7 @@ function PaginaHome() {
           </div>
         </main>
       </div>
+      
       <footer>
         <FooterConten />
       </footer>

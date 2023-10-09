@@ -1,8 +1,8 @@
+import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useAuth } from "../context/AuthContext";
-import { useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
-
+import imgReg from "../Imagenes/imgReg.png";
 import HeaderNoLog from '../Complements/HeaderNoLog.jsx';
 import FooterConten from '../Complements/Footer.jsx';
 
@@ -24,13 +24,31 @@ function PaginaRegistro() {
   });
 
   return (
-    <div className="bg-slate-200">
+    <div className="bg-slate-50">
       <header>
         <HeaderNoLog />
       </header>
+      
+      <div className="flex  justify-center mx-8 mt-28">
 
-      <div className="flex h-[calc(100vh-100px)] items-center justify-center">
-        <div className="bg-white max-w-md w-full p-10 rounded-md">
+        <div className="container flex flex-col items-center">
+          
+          <img class="w-32" src={imgReg} alt="vector img de moneda con tiempo" />
+
+          <h1 class="text-center text-4xl text-teal-500">vitae consectetur</h1>
+
+          <p className="text-black mt-2 w-4/5">
+            Etiam pulvinar dignissim felis quis suscipit. Vivamus dapibus, justo vel fermentum interdum,
+            dui nibh semper nisi, vitae commodo tortor nisl sed ipsum. Phasellus lobortis imperdiet dolor
+            convallis tempor. Etiam at mauris sit amet velit euismod consectetur non et ligula. Suspendisse
+            ornare, arcu quis finibus finibus, augue velit vulputate eros, at volutpat tellus velit vitae
+            felis. Nullam vel sagittis leo, in ornare magna. Vestibulum ante ipsum primis in faucibus orci
+            luctus et ultrices posuere cubilia curae; Suspendisse eleifend vel nibh non molestie. Mauris
+            ornare et libero sed euismod.
+          </p>
+        </div>
+          
+        <div className="bg-white max-w-md w-full p-10 rounded-md border mx-4">
           {RegistroErrors.map((error, i) => (
             <div className="bg-red-500 p-2 text-white" key={i}>
               {error}
@@ -41,7 +59,7 @@ function PaginaRegistro() {
           <hr className="mt-2 bg-black shadow" />
 
           <form onSubmit={onSubmit}>
-            <p className="text-black mt-4 font-bold">Nombre</p>
+            <p className="text-black mt-4">Nombre</p>
             <input
               type="text"
               {...register('nombre', { required: true })}
@@ -51,7 +69,7 @@ function PaginaRegistro() {
               <p className="text-red-500">El nombre es requerido</p>
             )}
 
-            <p className="text-black mt-2 font-bold">Correo</p>
+            <p className="text-black mt-2">Correo</p>
             <input
               type="email"
               {...register('email', { required: true })}
@@ -61,7 +79,7 @@ function PaginaRegistro() {
               <p className="text-red-500">Un email es requerido</p>
             )}
 
-            <p className="text-black mt-2 font-bold">Contraseña</p>
+            <p className="text-black mt-2">Contraseña</p>
             <input
               type="password"
               {...register('password', { required: true })}
@@ -71,7 +89,7 @@ function PaginaRegistro() {
               <p className="text-red-500">Una contraseña es requerida</p>
             )}
 
-            <button className="mt-4 text-white border border-white bg-teal-500 rounded-md w-24 h-8 hover:scale-110 ease-in-out duration-300 hover:text-teal-500 hover:border-teal-500 hover:bg-white">
+            <button className="mt-4  rounded-md w-24 h-8 text-white border border-white bg-teal-500 hover:scale-110 ease-in-out duration-300 hover:text-teal-500 hover:border-teal-500 hover:bg-white">
               Registrarse
             </button>
           </form>
@@ -86,6 +104,9 @@ function PaginaRegistro() {
             </Link>
           </p>
         </div>
+
+        
+        
       </div>
 
       <footer>

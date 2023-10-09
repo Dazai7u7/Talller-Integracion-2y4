@@ -3,6 +3,7 @@ import { useAuth } from "../context/AuthContext";
 import { Link } from "react-router-dom";
 import HeaderNoLog from '../Complements/HeaderNoLog.jsx';
 import FooterConten from '../Complements/Footer.jsx';
+import imgLogin from "../Imagenes/imgLogin.png"
 
 function PaginaLogin() {
   const {
@@ -18,12 +19,31 @@ function PaginaLogin() {
   });
 
   return (
-    <div className="bg-slate-200">
+    <div className="bg-slate-50">
       <header>
         <HeaderNoLog />
       </header>
 
-      <div className="flex mt-32 items-center justify-center">
+      <div className="flex mt-28 mx-8 ">
+
+        <div className="container flex flex-col items-center">
+
+          <img class="w-32" src={imgLogin} alt="vector img de moneda con tiempo" />
+          
+          <h1 class="text-center text-4xl text-teal-500">vitae consectetur</h1>
+        
+          <p className="text-black mt-2 w-4/5">
+            Etiam pulvinar dignissim felis quis suscipit. Vivamus dapibus, justo vel fermentum interdum,
+            dui nibh semper nisi, vitae commodo tortor nisl sed ipsum. Phasellus lobortis imperdiet dolor
+            convallis tempor. Etiam at mauris sit amet velit euismod consectetur non et ligula. Suspendisse
+            ornare, arcu quis finibus finibus, augue velit vulputate eros, at volutpat tellus velit vitae
+            felis. Nullam vel sagittis leo, in ornare magna. Vestibulum ante ipsum primis in faucibus orci
+            luctus et ultrices posuere cubilia curae; Suspendisse eleifend vel nibh non molestie. Mauris
+            ornare et libero sed euismod.
+          </p>
+        </div>
+        
+
         <div className="bg-white max-w-md w-full p-10 rounded-md shadow-lg">
           {LoginErrors.map((error, i) => (
             <div className="bg-red-500 p-2 text-white text-center" key={i}>
