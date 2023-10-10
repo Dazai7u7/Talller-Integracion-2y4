@@ -1,21 +1,25 @@
-const jwt = require('jsonwebtoken');
-const TOKEN_SECRET = require('../config.js');
+const jwt = require("jsonwebtoken");
+const { TOKEN_SECRET } = require("../config.js");
 
 const autRequerida = (req, res, next) => {
-    const { token } = req.cookies;
+    try {
+        const { token } = req.cookies;
 
-    if (!token) return res.status(401).json({ 
-        message: "No se encontró el token, autorización denegada" 
-    });
+        if (!token)
+        return res
+            .status(401)
+            .json({ message: "No hay token" });
 
-    jwt.verify(token, TOKEN_SECRET, (err, usuario) => {
-        if (err) {
-            console.error(err);
-            return res.status(403).json({ message: "Token inválido", error: err.message });
+        jwt.verify(token, TOKEN_SECRET, (error, user) => {
+        if (error) {
+            return res.status(401).json({ message: "Token invalido" });
         }
-        req.usuario = usuario;
+        req.user = user;
         next();
-    });
+        });
+    } catch (error) {
+        return res.status(500).json({ message: error.message });
+    }
 };
 
 module.exports = autRequerida;

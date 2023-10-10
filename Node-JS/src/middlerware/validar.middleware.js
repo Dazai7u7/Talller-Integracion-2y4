@@ -3,10 +3,9 @@ const validarSchema = (schema) => (req, res, next) => {
         schema.parse(req.body);
         next();
     } catch (error) {
-        const errores = error.errors.map(e => e.message);
-        res
+        return res
             .status(400)
-            .json(error.errors.map((error) => error.message));
+            .json({ error: error.errors.map((error) => error.message) });
     }
 };
 
