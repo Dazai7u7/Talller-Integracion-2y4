@@ -8,8 +8,10 @@ import { SignIn } from "../pages/SignIn";
 import { Login } from "../pages/Login";
 import { BudgetPlanner } from "../pages/BudgetPlanner";
 import {ExpenseTracker} from "../pages/ExpenseTracker";
-import {FinancialAnalysis} from "../pages/FinancialAnalysis";
+import { FinancialAnalysis } from "../pages/FinancialAnalysis";
 import { Home} from "../pages/home"
+import { ProductsListScreen } from '../pages/ProductsListScreen'
+
 const Stack = createNativeStackNavigator();
 type StackNavigation = {
   Welcome: undefined;
@@ -18,6 +20,7 @@ type StackNavigation = {
   BudgetPlanner: undefined;
   ExpenseTracker: undefined;
   FinancialAnalysis: undefined;
+  ProductsListScreen:undefined;
   home: undefined;
 };
 export type StackTypes = NativeStackNavigationProp<StackNavigation>;
@@ -57,6 +60,11 @@ export function Routes() {
       <Stack.Screen
         name="home"
         component={Home}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="ProductsListScreen"
+        component={ProductsListScreen}
         options={{ headerShown: false }}
       />
     </Stack.Navigator>
