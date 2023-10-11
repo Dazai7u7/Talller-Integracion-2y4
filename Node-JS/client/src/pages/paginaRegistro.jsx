@@ -7,7 +7,7 @@ import HeaderNoLog from '../Complements/HeaderNoLog.jsx';
 import FooterConten from '../Complements/Footer.jsx';
 
 function PaginaRegistro() {
-  const { 
+  const {
     register,
     handleSubmit,
     formState: { errors },
@@ -28,11 +28,11 @@ function PaginaRegistro() {
       <header>
         <HeaderNoLog />
       </header>
-      
+
       <div className="flex  justify-center mx-8 mt-28">
 
         <div className="container flex flex-col items-center">
-          
+
           <img class="w-32" src={imgReg} alt="vector img de moneda con tiempo" />
 
           <h1 class="text-center text-4xl text-teal-500">vitae consectetur</h1>
@@ -47,7 +47,7 @@ function PaginaRegistro() {
             ornare et libero sed euismod.
           </p>
         </div>
-          
+
         <div className="bg-white max-w-md w-full p-10 rounded-md border mx-4">
           {RegistroErrors.map((error, i) => (
             <div className="bg-red-500 p-2 text-white" key={i}>
