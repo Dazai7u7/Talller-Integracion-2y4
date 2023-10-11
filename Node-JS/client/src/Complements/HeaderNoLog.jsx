@@ -4,11 +4,11 @@ import {Outlet, Link} from "react-router-dom";
 
 export function HeaderNoLog() {
     return (
-        <div class="bg-slate-200">
+        <div className="bg-slate-200">
             <section>
-                <header class="flex flex-wrap bg-teal-500 h-24 justify-between items-center shadow-md">
-                    <div class="flex items-center px-8"> {/* Utiliza className en lugar de class */} 
-                        <h2 class="justify-center px-2">CMP</h2>
+                <header className="flex flex-wrap bg-teal-500 h-24 justify-between items-center shadow-md">
+                    <div className="flex items-center px-8"> {/* Utiliza className en lugar de class */} 
+                        <h2 className="justify-center px-2">CMP</h2>
                     </div>
 
                     {/* Nav que redirige a la página de registro e inicio de sesion */}
