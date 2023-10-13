@@ -24,7 +24,7 @@ function PaginaRegistro() {
   });
 
   return (
-    <div className="bg-slate-50">
+    <div className="bg-slate-50 overflow-hidden">
       <header>
         <HeaderNoLog />
       </header>
@@ -48,7 +48,7 @@ function PaginaRegistro() {
           </p>
         </div>
           
-        <div className="bg-white max-w-md w-full p-10 rounded-md border mx-4">
+        <div className="bg-white max-w-md w-full p-10 rounded-md border mx-4 animate-slide-left">
           {RegistroErrors.map((error, i) => (
             <div className="bg-red-500 p-2 text-white" key={i}>
               {error}

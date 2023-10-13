@@ -19,7 +19,7 @@ function PaginaLogin() {
   });
 
   return (
-    <div className="bg-slate-50">
+    <div className="bg-slate-50 overflow-hidden">
       <header>
         <HeaderNoLog />
       </header>
@@ -44,7 +44,7 @@ function PaginaLogin() {
         </div>
         
 
-        <div className="bg-white max-w-md w-full p-10 rounded-md shadow-lg">
+        <div className="bg-white max-w-md w-full p-10 rounded-md shadow-lg animate-slide-left">
           {LoginErrors.map((error, i) => (
             <div className="bg-red-500 p-2 text-white text-center" key={i}>
               {error}

@@ -36,11 +36,16 @@ function PaginaHome() {
 
         <main className="mx-12">
           <div className="max-w-lg">
-            <Carrusel>
-              {slides.map((s, index) => (
-                <img src={s} key={index} alt={`Slide ${index}`} />
+
+            <Carrusel> 
+
+              {slides.map((s, index) => ( /*Mapeo  de elementos*/
+                
+                <img src={s} key={index} alt={`Slide ${index}`} /> /*creacion de elementos img*/
               ))}
+
             </Carrusel>
+
           </div>
         </main>
       </div>

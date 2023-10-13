@@ -2,7 +2,7 @@ import React from 'react';
 import {Outlet, Link} from "react-router-dom";
  
 
-export function Barrita() {
+export function HeaderLog() {
     return (
         <div class="bg-slate-200">
             <section>
@@ -22,6 +22,10 @@ export function Barrita() {
                             Perfil Gastos
                         </Link>
 
+                        <Link to="/agregar-gasto" className="mx-4 px-4 py-1 text-center border border-white rounded text-white duration-300 bg-teal-500 hover:text-teal-500 hover:border-teal-500 hover:bg-white">
+                            Agregar Gastos
+                        </Link>
+
                     </nav>
                 </header>
                 <Outlet/>
@@ -30,4 +34,4 @@ export function Barrita() {
     )
 }
 
-export default Barrita;
+export default HeaderLog;

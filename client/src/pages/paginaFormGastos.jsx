@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import FooterConten from '../Complements/Footer.jsx';
-import Barrita from '../Complements/Barrita.jsx';
+import HeaderLog from '../Complements/HeaderLog.jsx';
 
 function PaginaFormGastos() {
 
@@ -34,8 +34,8 @@ function PaginaFormGastos() {
   return (
 
     <div className="bg-slate-50">
-            <header>
-        <Barrita />
+      <header>
+        <HeaderLog />
       </header>
       <div className="flex  justify-center mx-8 mt-28">
 
