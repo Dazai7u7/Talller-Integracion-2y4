@@ -42,12 +42,10 @@ export function ProductsListScreen({ route }) {
           keyExtractor={(item) => item.id}
           renderItem={({ item }) => (
             <View>
-              <Card data={item} selected={false} title={item.producto} />
+              <Card data={item} selected={false} title={item.producto} color={getRandomColor()} />
             </View>
           )}
         />
-
-        {/* Gráfico circular */}
 
         <PieChart data = {data} />
 

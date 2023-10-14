@@ -21,7 +21,7 @@ const gastosData =  [
     id: "3",
     producto: "Jabón",
     descripcion: "Descripción de Higiene",
-    valor: 950,
+    valor: 50,
     tipo_de_gasto: "Higiene",
     fecha: new Date(),
     usuario: "Usuario 3",
