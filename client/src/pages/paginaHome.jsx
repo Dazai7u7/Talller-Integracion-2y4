@@ -1,5 +1,6 @@
 import React from 'react';
 import HeaderNoLog from '../Complements/HeaderNoLog.jsx';
+import HeaderLog from '../Complements/HeaderLog.jsx'; 
 import FooterConten from '../Complements/Footer.jsx';
 import Carrusel from "../Complements/Carrusel.jsx";
 import img1 from "../Imagenes/imagen1.jpg";
@@ -9,13 +10,16 @@ import img3 from "../Imagenes/imagen3.jpg";
 const slides = [img1, img2, img3];
 
 function PaginaHome() {
+
+  const autenticador = false;
+
   return (
     <div className="bg-slate-50 ">
       <header>
-        <HeaderNoLog />
+        {autenticador ? <HeaderLog /> : <HeaderNoLog />}
       </header>
-      <div className="container flex mt-20 justify-between">
-        <div className="mx-8 w-1/2">
+      <div className="container flex mt-20 justify-between animate-slide-top">
+        <div className="mx-8 w-1/2 ">
           <h1 className="text-4xl text-teal-500">amet consectetur</h1>
           <p className="mt-4 text-black">
             Lorem, ipsum dolor sit amet consectetur adipisicing elit. Adipisci culpa non fuga fugit vel tempore magni

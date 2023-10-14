@@ -26,7 +26,7 @@ function PaginaLogin() {
 
       <div className="flex mt-28 mx-8 ">
 
-        <div className="container flex flex-col items-center">
+        <div className="container flex flex-col items-center animate-slide-top">
 
           <img class="w-32" src={imgLogin} alt="vector img de moneda con tiempo" />
           

@@ -18,9 +18,20 @@ export default {
             transform: 'translateX(0rem)' 
           },  
         },
+        'slide-top':{
+          '0%':{
+            transform: 'translateY(5rem)',
+            opacity: '0%'
+          },
+          '100%':{
+            transform: 'translateY(0rem)',
+            opacity: '100%'
+          },
+        },
       },
       animation: {
-        'slide-left': 'slide-left-to-right 1s ease-in-out'
+        'slide-left': 'slide-left-to-right 1s ease-in-out',
+        'slide-top': 'slide-top 1s ease-in-out',
       },
     },
   },
