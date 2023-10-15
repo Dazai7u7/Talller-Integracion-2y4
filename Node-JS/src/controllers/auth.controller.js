@@ -106,13 +106,14 @@ const handleProfileError = (res, error) => {
 
 const verifyToken = async (req, res) => {
     const { token } = req.cookies
-
+    
     if (!token) return res.status(401).json({ message: "No autorizado" });
 
-    jwt.verify(token, TOKEN_SECRET, async (err, usuario) => {
+    jwt.verify(token, TOKEN_SECRET, async (err, usuario1) => {
         if (err) return res.status(401).json({ message: "No autorizado"});
+        
+        const usuarioEncontrado = await usuario.findById(usuario1.id);
 
-        const usuarioEncontrado = await usuario.findById(usuario.id)
         if (!usuarioEncontrado) return res.status(401).json({ message: "No autorizado" });
 
         return res.json({

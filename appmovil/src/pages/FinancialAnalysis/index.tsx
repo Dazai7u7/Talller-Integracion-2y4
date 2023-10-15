@@ -5,6 +5,7 @@ import { useNavigation } from "@react-navigation/native";
 import gastosData from '../utils/expenses';
 import { Card, CardProps } from '../../components/Card';
 import { PieChart } from "react-native-gifted-charts";
+import {token} from '../../API/api.js';
 
 function getRandomColor() {
   const letters = '0123456789ABCDEF';
@@ -14,26 +15,30 @@ function getRandomColor() {
   }
   return color;
 }
+const colorMapping = {};
 
-const colorMapping = {
-  Comida: 'blue',
-  Transporte: 'green',
-  Higiene: 'red',
-  Entretenimiento: 'yellow',
-  Otros: 'purple',
-};
+const uniqueCategories = [...new Set(gastosData.map((item) => item.tipo_de_gasto))];
+
+uniqueCategories.forEach((category) => {
+  colorMapping[category] = getRandomColor();
+});
 
 export function FinancialAnalysis() {
   const [filteredData, setFilteredData] = useState<CardProps[]>([]);
   const navigation = useNavigation<StackTypes>();
   const [selectedSegment, setSelectedSegment] = useState(null);
   const [chartData, setChartData] = useState([]);
-  const [showPage, setShowPage] = useState(false); // Agregamos un estado para controlar la visualización de la página
-
+  const [showPage, setShowPage] = useState(false); 
+  const handleFocusOnPress = () => {
+    // Aquí puedes realizar la lógica para enfocar en la sección de la gráfica que desees
+    // Puedes establecer el valor de selectedSegment según tu lógica
+    console.log('Botón presionado');
+    setSelectedSegment("Transporte"); // Ejemplo: Enfocar en la sección de "Comida"
+  };
   useEffect(() => {
     setTimeout(() => {
       setShowPage(true);
-    }, 2000);
+    }, 500);
   }, []);
 
   useEffect(() => {
@@ -68,7 +73,27 @@ export function FinancialAnalysis() {
         <Text className="text-white text-2xl font-bold">Analisis de mis gastos</Text>
       </Animatable.View>
       <Animatable.View animation="fadeInUp" className="bg-white rounded-tl-2xl rounded-tr-2xl p-5 flex-1">
-        <PieChart data={chartData} />
+      <View className="w-3/5 h-2/5 mx-auto">
+          <PieChart
+          data={chartData}
+          donut
+          //showText
+          showValuesAsLabels
+          showTextBackground
+          textBackgroundColor="#333"
+          textBackgroundRadius={22}
+          textColor="white"
+          textSize={16}
+          fontWeight="bold"
+          strokeWidth={5}
+          strokeColor="#333"
+          innerCircleBorderWidth={5}
+          innerCircleBorderColor="#333"
+          focusOnPress
+
+          showGradient
+          />
+        </View>
         <FlatList
           data={filteredData}
           keyExtractor={(item) => item.id}
@@ -86,6 +111,10 @@ export function FinancialAnalysis() {
           )}
           showsVerticalScrollIndicator={false}
         />
+        <TouchableOpacity onPress={()=>handleFocusOnPress()}>
+          <Text>A</Text>
+        </TouchableOpacity>
+        
       </Animatable.View>
     </View>
   );
