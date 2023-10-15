@@ -1,4 +1,4 @@
-const jwt = require("jsonwebtoken");
+const jwt = require('jsonwebtoken');
 const { TOKEN_SECRET } = require("../config.js");
 
 const autRequerida = (req, res, next) => {
