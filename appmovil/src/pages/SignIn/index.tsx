@@ -30,9 +30,9 @@ export function SignIn() {
       if (response.status === 200) {
         //console.log('Inicio de sesión exitoso:', response.data);
         //console.log(response.headers)
-        const tokenHeader = response.headers["set-cookie"][0]; // Accede a la primera cabecera "set-cookie"
-        const tokenParts = tokenHeader.split(" "); // Divide la cadena de la cabecera en partes
-        const token = tokenParts[0].substring("token=".length); // Obtiene el token
+        const tokenHeader = response.headers["set-cookie"][0]; 
+        const tokenParts = tokenHeader.split(" "); 
+        const token = tokenParts[0].substring("token=".length); 
 
         await AsyncStorage.setItem('token', token);
 

@@ -5,7 +5,7 @@ import { useNavigation } from "@react-navigation/native";
 import gastosData from '../utils/expenses';
 import { Card, CardProps } from '../../components/Card';
 import { PieChart } from "react-native-gifted-charts";
-import {token} from '../../API/api.js';
+import {token,gastos,ingresarGasto} from '../../API/api.js';
 
 function getRandomColor() {
   const letters = '0123456789ABCDEF';
@@ -29,12 +29,6 @@ export function FinancialAnalysis() {
   const [selectedSegment, setSelectedSegment] = useState(null);
   const [chartData, setChartData] = useState([]);
   const [showPage, setShowPage] = useState(false); 
-  const handleFocusOnPress = () => {
-    // Aquí puedes realizar la lógica para enfocar en la sección de la gráfica que desees
-    // Puedes establecer el valor de selectedSegment según tu lógica
-    console.log('Botón presionado');
-    setSelectedSegment("Transporte"); // Ejemplo: Enfocar en la sección de "Comida"
-  };
   useEffect(() => {
     setTimeout(() => {
       setShowPage(true);
@@ -66,7 +60,13 @@ export function FinancialAnalysis() {
   const handleCardPress = (tipo_de_gasto) => {
     setSelectedSegment(tipo_de_gasto);
   };
-
+  const nuevoGasto = {
+    producto: 'Ejemplo de Producto',
+    descripcion: 'Descripción de ejemplo',
+    valor: 50.0,
+    tipo_de_gasto: 'Alimentos',
+    fecha: new Date(), 
+  };
   return (
     <View className="flex-1 bg-teal-600">
       <Animatable.View animation="fadeInLeft" delay={500} className="mt-14 mb-8 pl-5">
@@ -111,7 +111,7 @@ export function FinancialAnalysis() {
           )}
           showsVerticalScrollIndicator={false}
         />
-        <TouchableOpacity onPress={()=>handleFocusOnPress()}>
+        <TouchableOpacity onPress={()=>token()}>
           <Text>A</Text>
         </TouchableOpacity>
         

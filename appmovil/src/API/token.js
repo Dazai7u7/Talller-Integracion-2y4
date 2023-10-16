@@ -1,6 +1,5 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-// Función para verificar si el token está guardado
 export const checkToken = async () => {
   try {
     const token = await AsyncStorage.getItem('token');

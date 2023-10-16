@@ -44,7 +44,7 @@ const gastosData =  [
     fecha: new Date(),
     usuario: "Usuario 5",
   },
-  // Agregar más datos aquí manteniendo los mismos tipos_de_gasto
+
   {
     id: "6",
     producto: "Pizza",
@@ -63,7 +63,7 @@ const gastosData =  [
     fecha: new Date(),
     usuario: "Usuario 7",
   },
-  // Agregar más datos según sea necesario
+
 ];
 
 export default gastosData;

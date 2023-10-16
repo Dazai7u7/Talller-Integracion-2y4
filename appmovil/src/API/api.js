@@ -1,7 +1,7 @@
 // src/API/api.js
 import axios from 'axios';
 import {checkToken} from './token.js'
-const BASE_URL = 'http://192.168.1.59:3000/api';
+const BASE_URL = 'http://172.16.36.57:3000/api';
 
 const axiosInstance = axios.create({
   baseURL: BASE_URL,
@@ -45,5 +45,43 @@ export const token = async () => {
     return(response)
   } catch (error) {
     return(error)
+  }
+};
+
+export const gastos = async () => {
+  const token = checkToken();
+  try {
+    const response = await axios.get(`${BASE_URL}/gastos`, {
+      token,
+      
+    });
+    console.log(response.data)
+    return(response)
+  } catch (error) {
+    console.log("Error: "+error)
+    return(error)
+  }
+};
+
+export const ingresarGasto = async (nuevoGasto) => {
+  const token = checkToken(); 
+
+  try {
+    const response = await axios.post(`${BASE_URL}/gastos`, {
+      producto: nuevoGasto.producto,
+      descripcion: nuevoGasto.descripcion,
+      valor: nuevoGasto.valor,
+      tipo_de_gasto: nuevoGasto.tipo_de_gasto,
+      fecha: nuevoGasto.fecha,
+    }, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    console.log(response.data);
+    return response.data;
+  } catch (error) {
+    console.log("Error: " + error);
+    return error;
   }
 };

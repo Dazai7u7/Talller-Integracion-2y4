@@ -43,7 +43,7 @@ export function Card({ data, selected,title,color, ...rest }: Props) {
             currency: 'BRL'
           })
         ) : (
-          'Valor no válido' // O cualquier otro mensaje de error que desees mostrar
+          'Valor no válido' 
         )}
       </Amount>
     </Container>
