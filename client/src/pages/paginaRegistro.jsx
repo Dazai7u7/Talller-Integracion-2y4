@@ -33,9 +33,9 @@ function PaginaRegistro() {
 
         <div className="container flex flex-col items-center">
           
-          <img class="w-32" src={imgReg} alt="vector img de moneda con tiempo" />
+          <img className="w-32" src={imgReg} alt="vector img de moneda con tiempo" />
 
-          <h1 class="text-center text-4xl text-teal-500">vitae consectetur</h1>
+          <h1 className="text-center text-4xl text-teal-500">vitae consectetur</h1>
 
           <p className="text-black mt-2 w-4/5">
             Etiam pulvinar dignissim felis quis suscipit. Vivamus dapibus, justo vel fermentum interdum,

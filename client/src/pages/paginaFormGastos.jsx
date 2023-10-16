@@ -41,7 +41,7 @@ function PaginaFormGastos() {
 
         <div className="container flex flex-col items-center">
 
-          <h1 class="text-center text-4xl text-teal-500">Nose que poner</h1>
+          <h1 className="text-center text-4xl text-teal-500">Nose que poner</h1>
 
           <p className="text-black mt-2 w-4/5">
             Etiam pulvinar dignissim felis quis suscipit. Vivamus dapibus, justo vel fermentum interdum,

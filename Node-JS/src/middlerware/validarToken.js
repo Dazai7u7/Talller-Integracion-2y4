@@ -11,11 +11,11 @@ const autRequerida = (req, res, next) => {
             .json({ message: "No hay token" });
 
         jwt.verify(token, TOKEN_SECRET, (error, user) => {
-        if (error) {
-            return res.status(401).json({ message: "Token invalido" });
-        }
-        req.user = user;
-        next();
+            if (error) {
+                return res.status(401).json({ message: "Token inválido" });
+            }
+            req.user = user;
+            next();
         });
     } catch (error) {
         return res.status(500).json({ message: error.message });
