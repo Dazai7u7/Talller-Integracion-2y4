@@ -4,4 +4,4 @@ export const registroRequest = usuario => axios.post('/registro', usuario);
 
 export const loginRequest = usuario => axios.post('/login', usuario);
 
-export const verifyTokenRequest = async () => axios.get('/verify');
+export const verifyTokenRequest = () => axios.get('/verify');

@@ -7,7 +7,7 @@ export default function Carrusel({ children: slides }) {
     const Siguiente = () => setCurr((curr) => (curr == slides.length - 1 ? 0 : curr + 1));
 
     return (
-        <div className="shadow overflow-hidden relative rounded border border-teal-500">
+        <div className="shadow overflow-hidden relative rounded border border-teal-500 ">
             <div className="flex transition-transform ease-out duration-500" style={{ transform: `translateX(-${curr * 100}%)` }}>
                 {slides}
             </div>

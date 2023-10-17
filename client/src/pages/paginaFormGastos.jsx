@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
+import FooterConten from '../Complements/Footer.jsx';
+import HeaderLog from '../Complements/HeaderLog.jsx';
 
 function PaginaFormGastos() {
-  // Estado para almacenar los elementos del presupuesto
-  const [budgetItems, setBudgetItems] = useState([]);
-  // Estado para almacenar la nueva entrada del presupuesto
+
+  // Estado para almacenar la nueva entrada del producto
   const [newItem, setNewItem] = useState({ producto: '', descripcion: '', amount: 0 });
 
   // Función para manejar la entrada de un nuevo elemento
@@ -18,14 +19,11 @@ function PaginaFormGastos() {
     setNewItem({ ...newItem, [name]: value });
   };
 
-  // Calcular el total del presupuesto
-  const totalBudget = budgetItems.reduce((total, item) => total + parseFloat(item.amount), 0);
-
   // Estado para almacenar la categoría seleccionada
   const [selectedCategory, setSelectedCategory] = useState('');
 
   // Lista de categorías de gastos
-  const categories = ['Comida', 'Higiene', 'Transporte', 'Entretenimiento', 'Otros'];
+  const categories = ['Comida', 'Higiene', 'Transporte', 'Entretenimiento', ' Entre Otros'];
 
   // Función para manejar cambios en la selección de categoría
   const handleCategoryChange = (event) => {
@@ -33,57 +31,73 @@ function PaginaFormGastos() {
     setSelectedCategory(event.target.value);
   };
 
-  // Estado para almacenar presupuesto
-  const [budget, setBudget] = useState(0);
-
-  // Función para agregar presupuesto
-  const addBudget = (amount) => {
-    setBudget(amount);
-  };
-
   return (
-    <div className="bg-slate-200 flex h-[calc(100vh-100px)] items-center justify-center">
-      <div className="bg-white max-w-md h-[calc(100vh-100px)] w-[calc(100vh-100px)] p-10 rounded-md">
-        <h1 className="text-black text-2xl font-bold">Agregar Gastos</h1>
+
+    <div className="bg-slate-50">
+      <header>
+        <HeaderLog />
+      </header>
+      <div className="flex  justify-center mx-8 mt-28">
+
+        <div className="container flex flex-col items-center">
+
+          <h1 className="text-center text-4xl text-teal-500">Nose que poner</h1>
+
+          <p className="text-black mt-2 w-4/5">
+            Etiam pulvinar dignissim felis quis suscipit. Vivamus dapibus, justo vel fermentum interdum,
+            dui nibh semper nisi, vitae commodo tortor nisl sed ipsum. Phasellus lobortis imperdiet dolor
+            convallis tempor. Etiam at mauris sit amet velit euismod consectetur non et ligula. Suspendisse
+            ornare, arcu quis finibus finibus, augue velit vulputate eros, at volutpat tellus velit vitae
+            felis. Nullam vel sagittis leo, in ornare magna. Vestibulum ante ipsum primis in faucibus orci
+            luctus et ultrices posuere cubilia curae; Suspendisse eleifend vel nibh non molestie. Mauris
+            ornare et libero sed euismod.
+          </p>
+        </div>
+    <div className="bg-white max-w-md w-full p-10 rounded-md border mx-4">
+
+        <h1 className="text-black text-2xl font-bold text-center">Agregar Gastos</h1>
+        <hr className="mt-2 bg-black shadow" />
 
         {/* Formulario para agregar elementos al presupuesto */}
         <div className="mb-4">
-          <label htmlFor="budgetInput" className="text-black rounded-black">Presupuesto:</label>
-          <input
-            type="number"
-            id="budgetInput"
-            onChange={(e) => addBudget(parseInt(e.target.value))}
-            className="border p-2 mb-2 border-black text-black"
-          />
-
-          <label className="block text-sm text-black font-semibold mb-2">Nombre del producto:</label>
+         
+          <label className="text-black mt-4">Nombre del producto:</label>
           <input
             type="text"
             name="producto"
             value={newItem.producto}
             onChange={handleInputChange}
-            className="border p-2 mb-2 border-black text-black"
+            className="w-full bg-white text-black px-4 py-2 rounded-md my-2 border border-black focus:outline-teal-500"
           />
 
-          <label className="block text-sm text-black font-semibold mb-2">Descripción del producto</label>
+          <label className="text-black mt-2">Descripción      :</label>
           <input
             type="text"
             name="descripcion"
             value={newItem.descripcion}
             onChange={handleInputChange}
-            className="border p-2 mb-2 border-black text-black"
+            className="w-full bg-white text-black px-4 py-2 rounded-md my-2 border border-black focus:outline-teal-500"
+          />
+
+          <label className="text-black mt-2">Valor        :</label>
+          <input
+            type="number"
+            name="amount"
+            value={newItem.amount}
+            onChange={handleInputChange}
+            className="w-full bg-white text-black px-4 py-2 rounded-md my-2 border border-black focus:outline-teal-500"
           />
 
           {/* Etiqueta y lista desplegable para seleccionar la categoría */}
-          <label htmlFor="expenseCategory" className="block text-sm text-black font-semibold mb-2">Tipo de Gasto:</label>
+          <label htmlFor="expenseCategory" className="text-black mt-2">Tipo de Gasto:</label>
           <select
-            className="text-black border p-2 mb-2"
+            className="w-full bg-white text-black px-4 py-2 rounded-md my-2 border border-black focus:outline-teal-500"
             id="expenseCategory"
             value={selectedCategory}
             onChange={handleCategoryChange}
           >
             {/* Opción por defecto deshabilitada para indicar selección */}
-            <option className="block text-sm text-black font-semibold mb-2 " value="" disabled>Seleccionar Gasto</option>
+            <option className="block text-sm text-black font-semibold mb-2 " disabled>Seleccionar Gasto</option>
 
             {/* Mapeo de categorías para renderizar opciones */}
             {categories.map((category, index) => (
@@ -93,46 +107,23 @@ function PaginaFormGastos() {
             ))}
           </select>
 
-          <p className="text-black">Categoría seleccionada: {selectedCategory}</p>
-
-          <label className="block text-sm text-black font-semibold mb-2">Valor del producto:</label>
-          <input
-            type="number"
-            name="amount"
-            value={newItem.amount}
-            onChange={handleInputChange}
-            className="border p-2 mb-2 border-black text-black"
-          />
-
           <button
             type="button"
             onClick={handleAddItem}
-            className="bg-blue-500 text-black py-2 px-4 rounded"
+            className="mt-4  rounded-md w-24 h-8 text-white border border-white bg-teal-500 hover:scale-110 ease-in-out duration-300 hover:text-teal-500 hover:border-teal-500 hover:bg-white"
           >
-            Agregar
+            Enviar
           </button>
-        </div>
+          </div>
 
-        {/* Lista de elementos del presupuesto */}
-        <div className="mb-4">
-          <h2 className="text-xl text-black font-bold mb-2">Lista de Gastos</h2>
-          <ul>
-            {budgetItems.map((item, index) => (
-              <li key={index} className="mb-2 text-black">
-                {item.producto}: ${item.amount}
-              </li>
-            ))}
-          </ul>
-        </div>
-
-        {/* Total del presupuesto */}
-        <div>
-          <h2 className="text-black">Resumen</h2>
-          <p className="text-black">Presupuesto: ${budget - totalBudget}</p>
-          <h2 className="text-xl text-black font-bold mb-2">Total de Gastos: ${totalBudget}</h2>
+        
         </div>
       </div>
-    </div>
+
+      <footer>
+          <FooterConten />
+      </footer>
+</div>
   );
 }
 
