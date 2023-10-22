@@ -32,11 +32,8 @@ function PaginaRegistro() {
       <div className="flex  justify-center mx-8 mt-28">
 
         <div className="container flex flex-col items-center">
-          
           <img className="w-32" src={imgReg} alt="vector img de moneda con tiempo" />
-
           <h1 className="text-center text-4xl text-teal-500">vitae consectetur</h1>
-
           <p className="text-black mt-2 w-4/5">
             Etiam pulvinar dignissim felis quis suscipit. Vivamus dapibus, justo vel fermentum interdum,
             dui nibh semper nisi, vitae commodo tortor nisl sed ipsum. Phasellus lobortis imperdiet dolor

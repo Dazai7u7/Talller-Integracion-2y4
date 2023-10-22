@@ -1,16 +1,36 @@
 import React, { useState } from 'react';
 import FooterConten from '../Complements/Footer.jsx';
 import HeaderLog from '../Complements/HeaderLog.jsx';
+import axios from 'axios';
+import { useAuth } from "../context/AuthContext";
 
 function PaginaFormGastos() {
+
+  const { user } = useAuth();
 
   // Estado para almacenar la nueva entrada del producto
   const [newItem, setNewItem] = useState({ producto: '', descripcion: '', amount: 0 });
 
   // Función para manejar la entrada de un nuevo elemento
-  const handleAddItem = () => {
-    setBudgetItems([...budgetItems, newItem]);
-    setNewItem({ producto: '', descripcion: '', amount: 0 });
+  const handleAddItem = async () => {
+    try {
+      if (!newItem.producto || !newItem.descripcion || newItem.amount <= 0 || !selectedCategory) {
+        console.error("Todos los campos son obligatorios y los valores ingresados no pueden ser números negativos");
+        return;
+      }
+      const newItemData = {
+        userId: user.id, // Utiliza user.id para obtener el ID del usuario actual
+        producto: newItem.producto,
+        descripcion: newItem.descripcion,
+        amount: newItem.amount,
+        category: selectedCategory,
+      };
+      const response = await axios.post('/gastos', newItemData);
+
+      setNewItem({ producto: '', descripcion: '', amount: 0 });
+    } catch (error) {
+      console.error('No se ha podido agregar el gasto', error);
+    }
   };
 
   // Función para manejar cambios en la entrada del nuevo elemento
@@ -23,7 +43,7 @@ function PaginaFormGastos() {
   const [selectedCategory, setSelectedCategory] = useState('');
 
   // Lista de categorías de gastos
-  const categories = ['Comida', 'Higiene', 'Transporte', 'Entretenimiento', ' Entre Otros'];
+  const categories = ['Comida', 'Higiene', 'Transporte', 'Entretenimiento', ' Otro'];
 
   // Función para manejar cambios en la selección de categoría
   const handleCategoryChange = (event) => {

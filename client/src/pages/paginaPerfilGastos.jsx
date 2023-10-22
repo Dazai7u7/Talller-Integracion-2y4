@@ -26,7 +26,7 @@ function PaginaPerfilGastos() {
     <div className='bg-slate-200'>
 
       <header>
-        <HeaderLog />
+        <HeaderLog/>
       </header>
       <div className=" flex h-[calc(100vh-100px)] items-center justify-center">
 

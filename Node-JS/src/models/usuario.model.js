@@ -17,7 +17,7 @@ const usuarioSchema = new mongoose.Schema({ //Datos que se guardaran en la base 
         required: true
     }
 }, {
-    timestamps: true
+    timestamps: true //Guardado de fecha de creacion y de edicion
 });
 
 module.exports = mongoose.model('usuario', usuarioSchema); //exportacion de "objetos"

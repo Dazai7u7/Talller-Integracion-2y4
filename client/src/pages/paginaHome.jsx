@@ -2,6 +2,8 @@ import React from 'react';
 import HeaderNoLog from '../Complements/HeaderNoLog.jsx';
 import HeaderLog from '../Complements/HeaderLog.jsx'; 
 import FooterConten from '../Complements/Footer.jsx';
+import useUsser from '../Hooks/UseUsser.jsx';
+
 import Carrusel from "../Complements/Carrusel.jsx";
 import img1 from "../Imagenes/imagen1.jpg";
 import img2 from "../Imagenes/imagen2.jpg";
@@ -11,12 +13,14 @@ const slides = [img1, img2, img3];
 
 function PaginaHome() {
 
-  const autenticador = false;
+  const {isLogged} = useUsser();
+
+
 
   return (
     <div className="bg-slate-50 ">
       <header>
-        {autenticador ? <HeaderLog /> : <HeaderNoLog />}
+        {isLogged ? <HeaderLog/> : <HeaderNoLog />}
       </header>
       <div className="container flex mt-20 justify-between animate-slide-top">
         <div className="mx-8 w-1/2 ">
@@ -57,6 +61,7 @@ function PaginaHome() {
       <footer>
         <FooterConten />
       </footer>
+      
     </div>
   );
 }

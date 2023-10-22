@@ -5,7 +5,7 @@ const jwt = require('jsonwebtoken');
 const { TOKEN_SECRET } = require('../config.js');
 
 const registro = async (req, res) => {
-    const { nombre, email, password } = req.body;
+    const { nombre, email, password } = req.body; //Extracción de datos
 
     try {
         const userFound = await usuario.findOne({ email });
@@ -15,7 +15,7 @@ const registro = async (req, res) => {
 
         const passwordHash = await bcrypt.hash(password, 10);
 
-        const nuevoUsuario = new usuario({
+        const nuevoUsuario = new usuario({ //creacion de objeto usuario
             nombre,
             email,
             password: passwordHash,
@@ -23,7 +23,7 @@ const registro = async (req, res) => {
 
         const token = crearTokenAcceso({ id: nuevoUsuario._id });
 
-        await nuevoUsuario.save();
+        await nuevoUsuario.save(); //guardado de objeto usuario
 
         res.cookie("token", token);
         res.json(formatUserData(nuevoUsuario));
