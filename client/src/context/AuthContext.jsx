@@ -54,7 +54,7 @@ export const AuthProvider = ({ children }) => {
     }, [errors])
 
     useEffect(() => {
-        async function checkLogin () {
+        async function checkLogin() {
             const cookies = Cookies.get();
 
             if (!cookies.token) {
@@ -74,7 +74,6 @@ export const AuthProvider = ({ children }) => {
                 setUsuario(res.data);
                 setLoading(false);
             } catch (error) {
-                console.log(error)
                 setIsAuthenticated(false);
                 setUsuario(null);
                 setLoading(false);

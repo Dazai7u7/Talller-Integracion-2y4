@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken');
-const { TOKEN_SECRET } = require('../config.js'); // Asegúrate de que la ruta sea correcta
+const TOKEN_SECRET = require('../config.js');
 
 // Función para crear un token de acceso
 const crearTokenAcceso = (datosUsuario) => {

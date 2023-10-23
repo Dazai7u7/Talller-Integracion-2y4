@@ -2,7 +2,7 @@ const usuario = require('../models/usuario.model.js');
 const bcrypt = require('bcryptjs');
 const { crearTokenAcceso } = require('../libs/jwt.js'); // Cambio en la importación
 const jwt = require('jsonwebtoken');
-const { TOKEN_SECRET } = require('../config.js');
+const TOKEN_SECRET = require('../config.js');
 
 const registro = async (req, res) => {
     const { nombre, email, password } = req.body; //Extracción de datos
