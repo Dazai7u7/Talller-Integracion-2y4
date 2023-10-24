@@ -12,6 +12,7 @@ function PaginaRegistro() {
     handleSubmit,
     formState: { errors },
   } = useForm();
+  
   const { signup, isAuthenticated, errors: RegistroErrors } = useAuth();
   const navigate = useNavigate();
 

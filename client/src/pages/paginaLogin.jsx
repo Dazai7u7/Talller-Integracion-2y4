@@ -1,6 +1,7 @@
+import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useAuth } from "../context/AuthContext";
-import { Link } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import HeaderNoLog from '../Complements/HeaderNoLog.jsx';
 import FooterConten from '../Complements/Footer.jsx';
 import imgLogin from "../Imagenes/imgLogin.png"
@@ -12,7 +13,12 @@ function PaginaLogin() {
     formState: { errors },
   } = useForm();
 
-  const { signin, errors: LoginErrors } = useAuth();
+  const { signin, isAuthenticated, errors: LoginErrors } = useAuth();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (isAuthenticated) navigate('/perfil-gastos');
+  }, [isAuthenticated]);
 
   const onSubmit = handleSubmit((data) => {
     signin(data);

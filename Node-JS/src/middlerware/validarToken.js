@@ -14,7 +14,7 @@ const autRequerida = (req, res, next) => {
             if (error) {
                 return res.status(401).json({ message: "Token inválido" });
             }
-            req.user = user;
+            req.usuario = user; // Cambio a req.usuario
             next();
         });
     } catch (error) {
