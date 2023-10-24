@@ -8,24 +8,29 @@ const registro = async (req, res) => {
     const { nombre, email, password } = req.body; //Extracción de datos
 
     try {
+
         const userFound = await usuario.findOne({ email });
+        //verificacion de correo
         if (userFound) {
             return res.status(400).json({ message: ["El correo ya está en uso"] });
         }
 
-        const passwordHash = await bcrypt.hash(password, 10);
+        const passwordHash = await bcrypt.hash(password, 10); //encriptacion de contraseña
 
         const nuevoUsuario = new usuario({ //creacion de objeto usuario
+            
             nombre,
             email,
             password: passwordHash,
         });
 
-        const token = crearTokenAcceso({ id: nuevoUsuario._id });
+        const token = crearTokenAcceso({ id: nuevoUsuario._id }); //token de acceso para el usuario
 
         await nuevoUsuario.save(); //guardado de objeto usuario
 
+        //creacion de cookie para mantener la informacion del usuario
         res.cookie("token", token);
+        
         res.json(formatUserData(nuevoUsuario));
     } catch (error) {
         handleRegistrationError(res, error);

@@ -6,14 +6,17 @@ import FooterConten from '../Complements/Footer.jsx';
 import imgLogin from "../Imagenes/imgLogin.png"
 
 function PaginaLogin() {
+  //validacion de datos
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
 
+  //obtencion de funciones de autenticacion
   const { signin, errors: LoginErrors } = useAuth();
 
+  //envio de datos
   const onSubmit = handleSubmit((data) => {
     signin(data);
   });

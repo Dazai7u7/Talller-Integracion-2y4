@@ -16,11 +16,12 @@ function App() {
           <Route path='/' element={<PaginaHome/>}/>
           <Route path='/login' element={<PaginaLogin />} />
           <Route path='/registro' element={<PaginaRegistro />} />
-          <Route path='/agregar-gasto' element={<PaginaFormGastos />} />
+          
           
         <Route element={<ProtectedRoute/>}>
           <Route path='/perfil-gastos' element={<PaginaPerfilGastos />} />
           <Route path='/gastos/:id' element={<PaginaFormGastos />} />
+          <Route path='/agregar-gasto' element={<PaginaFormGastos />} />
           
         </Route>
 

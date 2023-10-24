@@ -9,19 +9,25 @@ import img1 from "../Imagenes/imagen1.jpg";
 import img2 from "../Imagenes/imagen2.jpg";
 import img3 from "../Imagenes/imagen3.jpg";
 
+
+// Lista de imágenes para el carrusel
+
 const slides = [img1, img2, img3];
 
 function PaginaHome() {
 
-  const {isLogged} = useUsser();
+  const {isLogged} = useUsser(); // Hook de autenticación
 
 
 
   return (
     <div className="bg-slate-50 ">
       <header>
-        {isLogged ? <HeaderLog/> : <HeaderNoLog />}
+        
+        {isLogged ? <HeaderLog/> : <HeaderNoLog />} {/*// Aquí va el componente HeaderLog o HeaderNoLog dependiendo si el usuario está autenticado*/} 
+    
       </header>
+
       <div className="container flex mt-20 justify-between animate-slide-top">
         <div className="mx-8 w-1/2 ">
           <h1 className="text-4xl text-teal-500">amet consectetur</h1>

@@ -8,17 +8,19 @@ import FooterConten from '../Complements/Footer.jsx';
 
 function PaginaRegistro() {
   const {
-    register,
-    handleSubmit,
-    formState: { errors },
+    register, //Registro de datos de entrada
+    handleSubmit, //Manejo de sesion del formulario
+    formState: { errors }, //Manejo de errores
   } = useForm();
   const { signup, isAuthenticated, errors: RegistroErrors } = useAuth();
   const navigate = useNavigate();
 
+  //Redireccionamiento si el usuario está autenticado
   useEffect(() => {
     if (isAuthenticated) navigate('/');
   }, [isAuthenticated]);
 
+  //Envio de datos al servidor
   const onSubmit = handleSubmit(async (values) => {
     signup(values);
   });
@@ -60,7 +62,7 @@ function PaginaRegistro() {
             <input
               type="text"
               {...register('nombre', { required: true })}
-              className="w-full bg-white text-black px-4 py-2 rounded-md my-2 border border-black focus:outline-teal-500"
+              className="w-full bg-white text-black px-4 py-2 rounded-md my-2 border border-black focus:outline-teal-500" autoComplete="off"
             />
             {errors.nombre && (
               <p className="text-red-500">El nombre es requerido</p>
@@ -70,7 +72,7 @@ function PaginaRegistro() {
             <input
               type="email"
               {...register('email', { required: true })}
-              className="w-full bg-white text-black px-4 py-2 rounded-md my-2 border border-black focus:outline-teal-500"
+              className="w-full bg-white text-black px-4 py-2 rounded-md my-2 border border-black focus:outline-teal-500" autoComplete="off"
             />
             {errors.email && (
               <p className="text-red-500">Un email es requerido</p>

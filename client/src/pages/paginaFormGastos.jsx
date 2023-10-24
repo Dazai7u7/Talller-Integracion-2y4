@@ -2,30 +2,41 @@ import React, { useState } from 'react';
 import FooterConten from '../Complements/Footer.jsx';
 import HeaderLog from '../Complements/HeaderLog.jsx';
 import axios from 'axios';
-import { useAuth } from "../context/AuthContext";
 
 function PaginaFormGastos() {
-
-  const { user } = useAuth();
-
+  
   // Estado para almacenar la nueva entrada del producto
   const [newItem, setNewItem] = useState({ producto: '', descripcion: '', amount: 0 });
 
-  // Función para manejar la entrada de un nuevo elemento
+  // Define selectedCategory aquí
+  const [selectedCategory, setSelectedCategory] = useState(''); 
+
+   // Función para manejar la entrada de un nuevo elemento
   const handleAddItem = async () => {
+
+    
     try {
+      // Verifica que los campos no estén vacíos y que el valor no sea negativo
       if (!newItem.producto || !newItem.descripcion || newItem.amount <= 0 || !selectedCategory) {
         console.error("Todos los campos son obligatorios y los valores ingresados no pueden ser números negativos");
         return;
       }
+
+      //Construccion de objeto
       const newItemData = {
-        userId: user.id, // Utiliza user.id para obtener el ID del usuario actual
+        userId: user.id,
         producto: newItem.producto,
         descripcion: newItem.descripcion,
         amount: newItem.amount,
         category: selectedCategory,
       };
+
+      //Envio de datos al servidor
       const response = await axios.post('/gastos', newItemData);
+
+      console.log("Datos guardados", response.data);
+
+      //reestablecimiento del estado local newitem
 
       setNewItem({ producto: '', descripcion: '', amount: 0 });
     } catch (error) {
@@ -38,9 +49,6 @@ function PaginaFormGastos() {
     const { name, value } = e.target;
     setNewItem({ ...newItem, [name]: value });
   };
-
-  // Estado para almacenar la categoría seleccionada
-  const [selectedCategory, setSelectedCategory] = useState('');
 
   // Lista de categorías de gastos
   const categories = ['Comida', 'Higiene', 'Transporte', 'Entretenimiento', ' Otro'];
@@ -88,6 +96,7 @@ function PaginaFormGastos() {
             value={newItem.producto}
             onChange={handleInputChange}
             className="w-full bg-white text-black px-4 py-2 rounded-md my-2 border border-black focus:outline-teal-500"
+            autoComplete="off"
           />
 
           <label className="text-black mt-2">Descripción      :</label>
@@ -97,6 +106,7 @@ function PaginaFormGastos() {
             value={newItem.descripcion}
             onChange={handleInputChange}
             className="w-full bg-white text-black px-4 py-2 rounded-md my-2 border border-black focus:outline-teal-500"
+            autoComplete="off"
           />
 
           <label className="text-black mt-2">Valor        :</label>

@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
 
+// Carrusel de imágenes
 export default function Carrusel({ children: slides }) {
     const [curr, setCurr] = useState(0);
 
+    // Funciones del manejo de botones
+    
     const Anterior = () => setCurr((curr) => (curr == 0 ? slides.length - 1 : curr - 1));
     const Siguiente = () => setCurr((curr) => (curr == slides.length - 1 ? 0 : curr + 1));
 
