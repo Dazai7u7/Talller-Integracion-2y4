@@ -1,7 +1,7 @@
 // src/API/api.js
 import axios from 'axios';
 import {checkToken} from './token.js'
-const BASE_URL = 'http://172.16.36.57:3000/api';
+const BASE_URL = 'http://192.168.1.59:3000/api';
 
 const axiosInstance = axios.create({
   baseURL: BASE_URL,
@@ -44,6 +44,7 @@ export const token = async () => {
     console.log(response.data)
     return(response)
   } catch (error) {
+    console.log(error.message)
     return(error)
   }
 };
@@ -55,33 +56,73 @@ export const gastos = async () => {
       token,
       
     });
-    console.log(response.data)
     return(response)
   } catch (error) {
-    console.log("Error: "+error)
     return(error)
   }
 };
 
-export const ingresarGasto = async (nuevoGasto) => {
-  const token = checkToken(); 
-
+export const ingresarGasto = async (producto,descripcion,valor,tipo_de_gasto) => {
+  const token = await checkToken(); 
   try {
     const response = await axios.post(`${BASE_URL}/gastos`, {
-      producto: nuevoGasto.producto,
-      descripcion: nuevoGasto.descripcion,
-      valor: nuevoGasto.valor,
-      tipo_de_gasto: nuevoGasto.tipo_de_gasto,
-      fecha: nuevoGasto.fecha,
+      producto: producto,
+      descripcion: descripcion,
+      valor: valor,
+      tipo_de_gasto: tipo_de_gasto,
     }, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
     });
-    console.log(response.data);
-    return response.data;
+    return response;
   } catch (error) {
-    console.log("Error: " + error);
+    console.error("Error en la solicitud:", error);
+    console.log("Respuesta del servidor:", error.response.data);
     return error;
   }
 };
+
+
+export const Eliminar_gastos = async (id) => {
+  const token = checkToken();
+  try {
+    const response = await axios.delete(`${BASE_URL}/gastos/${id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    });
+    return response;
+  } catch (error) {
+    return error;
+  }
+};
+
+export const Obtener_gasto = async (id) => {
+  const token = checkToken();
+  try {
+    const response = await axios.get(`${BASE_URL}/gastos/${id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    });
+    return response;
+  } catch (error) {
+    return error;
+  }
+};
+
+export const Actualizar_gasto = async (id, updatedData) => {
+  const token = checkToken();
+  try {
+    const response = await axios.put(`${BASE_URL}/gastos/${id}`, updatedData, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    });
+    return response;
+  } catch (error) {
+    return error;
+  }
+};
+

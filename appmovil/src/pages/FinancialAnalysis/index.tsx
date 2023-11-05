@@ -111,7 +111,7 @@ export function FinancialAnalysis() {
           )}
           showsVerticalScrollIndicator={false}
         />
-        <TouchableOpacity onPress={()=>token()}>
+        <TouchableOpacity onPress={()=>gastos()}>
           <Text>A</Text>
         </TouchableOpacity>
         

@@ -1,31 +1,36 @@
 const usuario = require('../models/usuario.model.js');
 const bcrypt = require('bcryptjs');
-const crearTokenAcceso = require('../libs/jwt.js');
+const { crearTokenAcceso } = require('../libs/jwt.js'); // Cambio en la importación
 const jwt = require('jsonwebtoken');
 const TOKEN_SECRET = require('../config.js');
 
 const registro = async (req, res) => {
-    const { nombre, email, password } = req.body;
+    const { nombre, email, password } = req.body; //Extracción de datos
 
     try {
+
         const userFound = await usuario.findOne({ email });
+        //verificacion de correo
         if (userFound) {
-            return res.status(400).json(["El correo ya está en uso"]);
+            return res.status(400).json({ message: ["El correo ya está en uso"] });
         }
 
-        const passwordHash = await bcrypt.hash(password, 10);
+        const passwordHash = await bcrypt.hash(password, 10); //encriptacion de contraseña
 
-        const nuevoUsuario = new usuario({
+        const nuevoUsuario = new usuario({ //creacion de objeto usuario
+            
             nombre,
             email,
             password: passwordHash,
         });
 
-        const token = crearTokenAcceso({ id: nuevoUsuario._id });
+        const token = crearTokenAcceso({ id: nuevoUsuario._id }); //token de acceso para el usuario
 
-        await nuevoUsuario.save();
+        await nuevoUsuario.save(); //guardado de objeto usuario
 
+        //creacion de cookie para mantener la informacion del usuario
         res.cookie("token", token);
+        
         res.json(formatUserData(nuevoUsuario));
     } catch (error) {
         handleRegistrationError(res, error);
@@ -34,6 +39,7 @@ const registro = async (req, res) => {
 
 const login = async (req, res) => {
     const { email, password } = req.body;
+
     try {
         const usuarioEncontrado = await usuario.findOne({ email });
 
@@ -47,8 +53,8 @@ const login = async (req, res) => {
             return res.status(400).json({ message: "Contraseña incorrecta" });
         }
 
-        const token = await crearTokenAcceso({ id: usuarioEncontrado._id });
-        console.log(token)
+        const token = crearTokenAcceso({ id: usuarioEncontrado._id });
+
         res.cookie("token", token);
         res.json(formatUserData(usuarioEncontrado));
     } catch (error) {
@@ -105,17 +111,14 @@ const handleProfileError = (res, error) => {
 };
 
 const verifyToken = async (req, res) => {
-    const { token } = req.cookies
-    
+    const { token } = req.cookies;
+
     if (!token) return res.status(401).json({ message: "No autorizado" });
 
-    jwt.verify(token, TOKEN_SECRET, async (err, usuario1) => {
-        if (err) return res.status(401).json({ message: "No autorizado"});
-        
-        const usuarioEncontrado = await usuario.findById(usuario1.id);
-
+    jwt.verify(token, TOKEN_SECRET, async (err, decodedUsuario) => {
+        if (err) return res.status(401).json({ message: "No autorizado" });
+        const usuarioEncontrado = await usuario.findById(decodedUsuario.id);
         if (!usuarioEncontrado) return res.status(401).json({ message: "No autorizado" });
-
         return res.json({
             id: usuarioEncontrado._id,
             nombre: usuarioEncontrado.nombre,

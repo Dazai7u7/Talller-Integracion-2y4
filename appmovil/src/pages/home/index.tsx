@@ -43,11 +43,11 @@ function HomeScreen({ navigateToScreen }) {
     <View style={styles.container}>
       <ScrollView>
         <View style={styles.cardRow}>
-          <TouchableOpacity style={styles.card} onPress={() => navigateToScreen("BudgetPlanner")}>
-            <Text style={styles.cardText}>Agregar Presupuesto</Text>
+          <TouchableOpacity style={styles.card} onPress={() => navigateToScreen("Administrar_presupuesto")}>
+            <Text style={styles.cardText}>Administrar Presupuesto</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.card} onPress={() => navigateToScreen("ExpenseTracker")}>
-            <Text style={styles.cardText}>Registrar Gastos</Text>
+          <TouchableOpacity style={styles.card} onPress={() => navigateToScreen("Administrar_gastos")}>
+            <Text style={styles.cardText}>Administrar Gastos</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.card} onPress={() => navigateToScreen("FinancialAnalysis")}>
             <Text style={styles.cardText}>Analizar Mis Gastos</Text>

@@ -11,7 +11,10 @@ import {ExpenseTracker} from "../pages/ExpenseTracker";
 import { FinancialAnalysis } from "../pages/FinancialAnalysis";
 import { Home} from "../pages/home"
 import { ProductsListScreen } from '../pages/ProductsListScreen'
-
+import { Administrar_gastos } from "../pages/Administrar_gastos";
+import { Administrar_presupuesto } from "../pages/Administrar_presupuesto";
+import { Actualizar_gastos } from "../pages/Actualizar_gastos";
+import { Editar_gasto } from "../pages/Editar_gastos";
 const Stack = createNativeStackNavigator();
 type StackNavigation = {
   Welcome: undefined;
@@ -22,6 +25,10 @@ type StackNavigation = {
   FinancialAnalysis: undefined;
   ProductsListScreen:undefined;
   home: undefined;
+  Administrar_gastos:undefined;
+  Administrar_presupuesto:undefined;
+  Actualizar_gastos:undefined;
+  Editar_gasto:undefined;
 };
 export type StackTypes = NativeStackNavigationProp<StackNavigation>;
 export function Routes() {
@@ -65,6 +72,26 @@ export function Routes() {
       <Stack.Screen
         name="ProductsListScreen"
         component={ProductsListScreen}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="Administrar_gastos"
+        component={Administrar_gastos}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="Administrar_presupuesto"
+        component={Administrar_presupuesto}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="Actualizar_gastos"
+        component={Actualizar_gastos}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="Editar_gasto"
+        component={Editar_gasto}
         options={{ headerShown: false }}
       />
     </Stack.Navigator>

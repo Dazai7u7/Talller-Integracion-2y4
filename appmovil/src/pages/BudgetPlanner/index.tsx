@@ -1,97 +1,87 @@
 import React, { useState } from "react";
-import { View, Text, TextInput, Button, Modal, FlatList } from "react-native";
+import { View, Text, TextInput, Button, ScrollView } from "react-native"; 
 import { useNavigation } from "@react-navigation/native";
 import { StackTypes } from "../../routes";
 import * as Animatable from "react-native-animatable";
-import { Picker } from '@react-native-picker/picker';
+import {Picker} from '@react-native-picker/picker'
+import { ingresarGasto } from '../../API/api';
 
 export function BudgetPlanner() {
-  const [amount, setAmount] = useState("");
-  const [modalVisible, setModalVisible] = useState(false);
-  const [selectedMonth, setSelectedMonth] = useState("January");
-  const [selectedDay, setSelectedDay] = useState(1);
-  const [budgetList, setBudgetList] = useState([]);
-
-  const months = [
-    "January", "February", "March", "April", "May", "June",
-    "July", "August", "September", "October", "November", "December"
-  ];
-
   const navigation = useNavigation<StackTypes>();
+  const [error, setError] = useState(null);
+  const [producto, setProduct] = useState("");
+  const [descripcion, setDescription] = useState("");
+  const [valor, setValue] = useState(null);
+  const [tipo_de_gasto, setExpenseType] = useState("Comida"); // Establece el valor inicial
+  // Fecha se establecerá automáticamente en la creación del objeto
 
-  const addBudget = () => {
-    if (amount) {
-      const budget = {
-        amount: parseFloat(amount),
-        month: selectedMonth,
-        day: selectedDay
-      };
-      setAmount("");
-      setBudgetList([...budgetList, budget]);
-      setModalVisible(false);
-    }
-  };
-
+  const productTypes = ["Comida", "Transporte", "Higiene", "Entretenimiento", "Otros"]; // Opciones de selección
+  const handleAgregarGasto = async () => {
+      if (!producto || !descripcion || !valor || !tipo_de_gasto) {
+        setError('Por favor, complete todos los campos.');
+        return;
+      }
+      const fecha=new Date();
+      try {
+        const response = await ingresarGasto(producto, descripcion, valor, tipo_de_gasto, fecha);
+        if (response.status === 200) {
+          console.log('Gasto registrado:', response.data);
+          navigation.navigate("Administrar_gastos");
+        } else {
+          setError('Error en el registro: ' + response);
+        }
+      } catch (error) {
+        setError('Error en el registro: ' + error.message);
+      }
+    };
   return (
     <View style={{ flex: 1, backgroundColor: "#38a69d" }}>
-      <Animatable.View animation="fadeInLeft" delay={500} style={{ marginTop: 14, marginBottom: 4, paddingLeft: 5 }}>
-        <Text style={{ color: "white", fontSize: 20, fontWeight: "bold" }}>Agregar Presupuesto</Text>
+      <Animatable.View animation="fadeInLeft" delay={500} style={{ marginTop: 14, marginBottom: 8, paddingLeft: 5 }}>
+        <Text style={{ color: "white", fontSize: 24, fontWeight: "bold" }}>Registro de gastos</Text>
       </Animatable.View>
       <Animatable.View animation="fadeInUp" style={{ backgroundColor: "white", borderTopLeftRadius: 20, borderTopRightRadius: 20, padding: 5, flex: 1 }}>
-      <FlatList
-        data={budgetList}
-        keyExtractor={(item, index) => index.toString()}
-        renderItem={({ item }) => (
-          <View style={{ backgroundColor: "white", padding: 5, marginBottom: 2, borderRadius: 10 }}>
-            <Text style={{ fontSize: 20, fontWeight: "bold" }}>
-              Mes: {item.month}, Día: {item.day}, Cantidad: {item.amount}
-            </Text>
-          </View>
-        )}
-      />
-
-      <Animatable.View animation="fadeInUp" style={{ padding: 0 }}>
-        <Button title="Agregar presupuesto" onPress={() => setModalVisible(true)} color="#38a69d" />
-      </Animatable.View>
-
-      <Modal
-        animationType="slide"
-        transparent={true}
-        visible={modalVisible}
-      >
-        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-          <View style={{ backgroundColor: 'white', padding: 20, borderRadius: 10 }}>
-            <Text style={{ fontSize: 20, fontWeight: 'bold', marginBottom: 20 }}>
-              Agregar Presupuesto
-            </Text>
-            <Picker
-              selectedValue={selectedMonth}
-              onValueChange={(itemValue) => setSelectedMonth(itemValue)}
-            >
-              {months.map((month) => (
-                <Picker.Item label={month} value={month} key={month} />
-              ))}
-            </Picker>
-            <Picker
-              selectedValue={selectedDay}
-              onValueChange={(itemValue) => setSelectedDay(itemValue)}
-            >
-              {Array.from({ length: 31 }, (_, i) => i + 1).map((day) => (
-                <Picker.Item label={day.toString()} value={day} key={day} />
-              ))}
-            </Picker>
+        <ScrollView style={{ flex: 1 }}>
+          <View style={{ padding: 16 }}>
             <TextInput
-              placeholder="Cantidad"
-              value={amount}
-              onChangeText={(text) => setAmount(text)}
-              keyboardType="numeric"
-              style={{ borderBottomWidth: 1, borderColor: 'gray', marginBottom: 20, fontSize: 20, padding: 2 }}
+              placeholder="Producto"
+              value={producto}
+              onChangeText={(text) => setProduct(text)}
+              style={{ borderBottomWidth: 1, borderColor: "gray", marginBottom: 12, fontSize: 20, padding: 8 }}
             />
-            <Button title="Guardar" onPress={addBudget} />
-            <Button title="Cancelar" onPress={() => setModalVisible(false)} />
+            <TextInput
+              placeholder="Descripción"
+              value={descripcion}
+              onChangeText={(text) => setDescription(text)}
+              style={{ borderBottomWidth: 1, borderColor: "gray", marginBottom: 12, fontSize: 20, padding: 8 }}
+            />
+            <TextInput
+              placeholder="Valor"
+              value={valor}
+              onChangeText={(text) => {
+                const numericValue = parseFloat(text); // Convierte la cadena en un número decimal
+                setValue(numericValue); // Actualiza el estado con el valor numérico
+              }}
+              keyboardType="numeric"
+              style={{ borderBottomWidth: 1, borderColor: "gray", marginBottom: 12, fontSize: 20, padding: 8 }}
+            />
+            <Text>Tipo de Producto:</Text>
+            <Picker
+              selectedValue={tipo_de_gasto}
+              onValueChange={(itemValue) => setExpenseType(itemValue)}
+              style={{ height: 50, width: "100%" }}
+            >
+              {productTypes.map((type, index) => (
+                <Picker.Item key={index} label={type} value={type} />
+              ))}
+            </Picker>
+            {error && (
+              <Text style={{ color: "red" }}>{error}</Text>
+            )}
+            <Button title="Agregar" 
+             onPress={handleAgregarGasto}
+             color="#38a69d" />
           </View>
-        </View>
-      </Modal>
+        </ScrollView>
       </Animatable.View>
     </View>
   );

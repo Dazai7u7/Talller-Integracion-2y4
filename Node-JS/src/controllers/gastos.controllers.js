@@ -27,7 +27,6 @@ const obtenerUnGasto = (req, res) => {
 
 const crearGasto = (req, res) => {
     const { producto, descripcion, valor, tipo_de_gasto, fecha } = req.body;
-    console.log(producto)
     const nuevoGasto = new Gasto({
         producto,
         descripcion,

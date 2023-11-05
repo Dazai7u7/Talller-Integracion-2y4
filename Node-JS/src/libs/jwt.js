@@ -1,20 +1,9 @@
 const jwt = require('jsonwebtoken');
-const TOKEN_SECRET = require('../config');
+const TOKEN_SECRET = require('../config.js');
 
-function crearTokenacceso(payload) {
-    return new Promise((resolve, reject) => {
-        jwt.sign(
-            payload,
-            TOKEN_SECRET,
-            {
-                expiresIn: "1d",
-            },
-            (err, token) => {
-                if (err) reject(err);
-                resolve(token);
-            }
-        );
-    });
-}
+// Función para crear un token de acceso
+const crearTokenAcceso = (datosUsuario) => {
+  return jwt.sign(datosUsuario, TOKEN_SECRET, { expiresIn: '1h' });
+};
 
-module.exports = crearTokenacceso;
+module.exports = { crearTokenAcceso };
