@@ -1,12 +1,22 @@
 import React from 'react';
 import {Outlet, Link} from "react-router-dom";
- 
+import { useAuth } from '../context/AuthContext';
+
+
 
 export function HeaderLog() {
-    return (
+
+    const {signout} = useAuth();
+    const handleSignout = async () => {
+        await signout();
+        window.location.href = '/';
+    };
+
+    return (        
         <div className="bg-slate-200">
             <section>
                 <header className="flex flex-wrap bg-teal-500 h-24 justify-between items-center shadow-md">
+                    
                     <div className="flex items-center px-8"> {/* Utiliza className en lugar de class */} 
                         <h2 className="justify-center px-2">CMP</h2>
                     </div>
@@ -24,6 +34,12 @@ export function HeaderLog() {
 
                         <Link to="/agregar-gasto" className="mx-4 px-4 py-1 text-center border border-white rounded text-white duration-300 bg-teal-500 hover:text-teal-500 hover:border-teal-500 hover:bg-white">
                             Agregar Gastos
+                        </Link>
+
+                        <Link to="/" onClick={handleSignout}
+                        className="mx-4 px-4 py-1 text-center border border-white rounded text-white duration-300 bg-teal-500 hover:text-teal-500 hover:border-teal-500 hover:bg-white">
+                              
+                            Cerrar sesión
                         </Link>
 
                     </nav>

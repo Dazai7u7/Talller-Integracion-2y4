@@ -32,23 +32,49 @@ function PaginaRegistro() {
         <HeaderNoLog />
       </header>
 
-      <div className="flex  justify-center mx-8 mt-28">
+      <div className="flex justify-end mx-8 mt-28 sm:flex sm:flex-col lg:flex-row">
+        <div className="container mx-auto flex flex-col justify-center sm:w-full lg:w-1/2">
+        
+          <h1 className="text-center text-xl font-semibold text-teal-500 animate-slide-top">Psum dolor sit amet</h1>
 
-        <div className="container flex flex-col items-center">
-          <img className="w-32" src={imgReg} alt="vector img de moneda con tiempo" />
-          <h1 className="text-center text-4xl text-teal-500">vitae consectetur</h1>
-          <p className="text-black mt-2 w-4/5">
-            Etiam pulvinar dignissim felis quis suscipit. Vivamus dapibus, justo vel fermentum interdum,
-            dui nibh semper nisi, vitae commodo tortor nisl sed ipsum. Phasellus lobortis imperdiet dolor
-            convallis tempor. Etiam at mauris sit amet velit euismod consectetur non et ligula. Suspendisse
-            ornare, arcu quis finibus finibus, augue velit vulputate eros, at volutpat tellus velit vitae
-            felis. Nullam vel sagittis leo, in ornare magna. Vestibulum ante ipsum primis in faucibus orci
-            luctus et ultrices posuere cubilia curae; Suspendisse eleifend vel nibh non molestie. Mauris
-            ornare et libero sed euismod.
-          </p>
+          <div className="h-1/2 flex justify-center mt-4 border rounded-md bg-white border-white animate-slide-top2">
+            <div className="flex items-center">
+              <img className="h-20 w-20 mx-4 shadow rounded-full border border-teal-500 bg-gray-50" src={imgReg} alt=""/>
+              <p className="text-black mx-2 ">
+                Nunc et diam ut arcu finibus volutpat quis sit amet ex. 
+                Donec tristique ligula eget nisi pellentesque, eget egestas 
+                erat malesuada. Morbi scelerisque sapien id nisl volutpat, 
+                id vehicula odio varius.
+              </p>
+            </div>
+          </div>
+
+          <div className="border mt-8 h-1/2 justify-center flex bg-white border-white rounded-md animate-slide-top3">
+            <div className="flex items-center">
+              <img className="h-20 w-20 mx-4 shadow rounded-full border border-teal-400 bg-gray-50" src={imgReg} alt=""/>
+              <p className="text-black mx-2 ">
+                Nunc et diam ut arcu finibus volutpat quis sit amet ex. 
+                Donec tristique ligula eget nisi pellentesque, eget egestas 
+                erat malesuada. Morbi scelerisque sapien id nisl volutpat, 
+                id vehicula odio varius.
+              </p>
+            </div>
+          </div>
+
+          <div className="border mt-8 h-1/2 justify-center flex bg-white border-white rounded-md animate-slide-top4">
+            <div className="flex items-center">
+              <img className="h-20 w-20 mx-4 shadow rounded-full border border-teal-400 bg-gray-50" src={imgReg} alt=""/>
+              <p className="text-black mx-2">
+                Nunc et diam ut arcu finibus volutpat quis sit amet ex. 
+                Donec tristique ligula eget nisi pellentesque, eget egestas 
+                erat malesuada. Morbi scelerisque sapien id nisl volutpat, 
+                id vehicula odio varius.
+              </p>
+            </div>
+          </div>
         </div>
-          
-        <div className="bg-white max-w-md w-full p-10 rounded-md border mx-4 animate-slide-left">
+
+        <div className="to-transparent bg-white sm:mx-auto sm:mt-8 lg:mt-0 lg:mx-0 max-w-md w-full shadow p-10 rounded-md border mx-3 animate-slide-left">
           {RegistroErrors.map((error, i) => (
             <div className="bg-red-500 p-2 text-white" key={i}>
               {error}

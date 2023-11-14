@@ -28,15 +28,15 @@ function PaginaLogin() {
         <HeaderNoLog />
       </header>
 
-      <div className="flex mt-28 mx-8 ">
+      <div className="flex mt-28 mx-8 sm:flex-col lg:flex-row">
 
-        <div className="container flex flex-col items-center animate-slide-top">
+        <div className="container sm:mx-auto lg:mx-0 flex flex-col items-center ">
 
-          <img className="w-32" src={imgLogin} alt="vector img de moneda con tiempo" />
+          <img className="w-32 animate-slide-top" src={imgLogin} alt="vector img de moneda con tiempo" />
           
-          <h1 className="text-center text-4xl text-teal-500">vitae consectetur</h1>
+          <h1 className="text-center text-4xl text-teal-500 animate-slide-top2">vitae consectetur</h1>
         
-          <p className="text-black mt-2 w-4/5">
+          <p className="text-black mt-2 w-4/5 animate-slide-top3">
             Etiam pulvinar dignissim felis quis suscipit. Vivamus dapibus, justo vel fermentum interdum,
             dui nibh semper nisi, vitae commodo tortor nisl sed ipsum. Phasellus lobortis imperdiet dolor
             convallis tempor. Etiam at mauris sit amet velit euismod consectetur non et ligula. Suspendisse
@@ -48,7 +48,7 @@ function PaginaLogin() {
         </div>
         
 
-        <div className="bg-white max-w-md w-full p-10 rounded-md shadow-lg animate-slide-left">
+        <div className="bg-white sm:mt-8 sm:mx-auto lg:mt-0 lg:mx-0 max-w-md w-full p-10 rounded-md shadow-lg animate-slide-left">
           {LoginErrors.map((error, i) => (
             <div className="bg-red-500 p-2 text-white text-center" key={i}>
               {error}
@@ -62,7 +62,7 @@ function PaginaLogin() {
             <input
               type="email"
               {...register('email', { required: true })}
-              className="w-full bg-white border border-black text-black px-4 py-2 rounded-md my-2 focus:outline-teal-400"
+              className="w-full bg-white border border-black text-black px-4 py-2 rounded-md my-2 focus:outline-teal-400" autoComplete="off"
             />
             {errors.email && <p className="text-red-500">Un email es requerido</p>}
             <p className="text-black mt-2">Contraseña: </p>
