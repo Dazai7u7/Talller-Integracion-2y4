@@ -1,7 +1,7 @@
 // src/API/api.js
 import axios from 'axios';
 import {checkToken} from './token.js'
-const BASE_URL = 'http://192.168.1.59:3000/api';
+const BASE_URL = 'http://192.168.0.11:3000/api';
 
 const axiosInstance = axios.create({
   baseURL: BASE_URL,
@@ -116,6 +116,81 @@ export const Actualizar_gasto = async (id, updatedData) => {
   const token = checkToken();
   try {
     const response = await axios.put(`${BASE_URL}/gastos/${id}`, updatedData, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    });
+    return response;
+  } catch (error) {
+    return error;
+  }
+};
+
+
+export const presupuestos = async () => {
+  const token = checkToken();
+  try {
+    const response = await axios.get(`${BASE_URL}/presupuesto`, {
+      token,
+      
+    });
+    return(response)
+  } catch (error) {
+    return(error)
+  }
+};
+
+export const ingresarPresupuesto = async (presupuesto) => {
+  const token = await checkToken(); 
+  try {
+    const response = await axios.post(`${BASE_URL}/presupuesto`, {
+      presupuesto:presupuesto
+    }, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response;
+  } catch (error) {
+    console.error("Error en la solicitud:", error);
+    console.log("Respuesta del servidor:", error.response.data);
+    return error;
+  }
+};
+
+
+export const Eliminar_Presupuesto = async (id) => {
+  const token = checkToken();
+  try {
+    const response = await axios.delete(`${BASE_URL}/presupuesto/${id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    });
+    return response;
+  } catch (error) {
+    return error;
+  }
+};
+
+export const Obtener_Presupuesto = async (id) => {
+  const token = checkToken();
+  try {
+    const response = await axios.get(`${BASE_URL}/presupuesto/${id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    });
+    return response;
+  } catch (error) {
+    return error;
+  }
+};
+
+export const Actualizar_Presupuesto= async (id, updatedData) => {
+  const token = checkToken();
+  try {
+    const response = await axios.put(`${BASE_URL}/presupuesto/${id}`, updatedData, {
       headers: {
         Authorization: `Bearer ${token}`
       }

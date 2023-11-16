@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import { View, Text, TextInput, Button, ScrollView } from "react-native"; 
 import { useNavigation } from "@react-navigation/native";
 import { StackTypes } from "../../routes";
 import * as Animatable from "react-native-animatable";
 import {Picker} from '@react-native-picker/picker'
-import { ingresarGasto } from '../../API/api';
+import { ingresarGasto,presupuestos,gastos } from '../../API/api';
 export function ExpenseTracker() {
   const navigation = useNavigation<StackTypes>();
   const [error, setError] = useState(null);
@@ -12,22 +12,57 @@ export function ExpenseTracker() {
   const [descripcion, setDescription] = useState("");
   const [valor, setValue] = useState(null);
   const [tipo_de_gasto, setExpenseType] = useState("Comida"); // Establece el valor inicial
+  const [presupuesto, setpresupuesto]=useState("")
   // Fecha se establecerá automáticamente en la creación del objeto
 
   const productTypes = ["Comida", "Transporte", "Higiene", "Entretenimiento", "Otros"]; // Opciones de selección
+  useEffect( () => {
+    presupuesto_restante();
+  }, []);
+    
+  const presupuesto_restante = async () => {
+    try{
+     // Obtiene el presupuesto
+    const presupuestoResponse = await presupuestos();
+    const presupuestoData = presupuestoResponse.data;
+
+    // Obtiene los gastos
+    const gastosResponse = await gastos();
+    const gastosData = gastosResponse.data;
+
+    // Calcula la suma de los valores de los gastos
+    const totalGastos = gastosData.reduce((total, gasto) => total + gasto.valor, 0);
+
+    // Calcula la suma de todos los presupuestos
+    const totalPresupuestos = presupuestoData.reduce((total, presupuesto) => total + presupuesto.presupuesto, 0);
+
+    // Resta los gastos al total de presupuestos
+    const nuevoTotalPresupuestos = totalPresupuestos - totalGastos;
+    // Actualiza el estado con el nuevo total de presupuestos
+    setpresupuesto(nuevoTotalPresupuestos);
+    }catch(error) {
+        setError('Error al obtener presupuesto y gastos:', error.message);
+      }
+  }
   const handleAgregarGasto = async () => {
       if (!producto || !descripcion || !valor || !tipo_de_gasto) {
         setError('Por favor, complete todos los campos.');
         return;
       }
       try {
-        const response = await ingresarGasto(producto, descripcion, valor, tipo_de_gasto);
-        if (response.status === 200) {
-          console.log('Gasto registrado:', response.data);
-          navigation.navigate("Administrar_gastos");
-        } else {
-          setError('Error en el registro: ' + response);
+        if(valor<=presupuesto){
+          const response = await ingresarGasto(producto, descripcion, valor, tipo_de_gasto);
+          if (response.status === 200) {
+            console.log('Gasto registrado:', response.data);
+            navigation.navigate("Administrar_gastos");
+          } else {
+            setError('Error en el registro: ' + response);
+          }
+        }else {
+          // Expense amount exceeds the budget, set an error message
+          setError('El gasto supera el presupuesto establecido.');
         }
+        
       } catch (error) {
         setError('Error en el registro: ' + error.message);
       }

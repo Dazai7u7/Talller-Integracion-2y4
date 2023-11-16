@@ -4,7 +4,7 @@ import gastosData from '../utils/expenses';
 import { Card, CardProps } from '../../components/Card';
 import * as Animatable from 'react-native-animatable';
 import { PieChart } from "react-native-gifted-charts";
-
+import { gastos } from '../../API/api.js';
 function getRandomColor() {
   const letters = '0123456789ABCDEF';
   let color = '#';
@@ -19,34 +19,37 @@ export function ProductsListScreen({ route }) {
   const [chartData, setChartData] = useState([]);
   const { tipo_de_gasto } = route.params;
   const [colorMapping, setColorMapping] = useState({});
-  const [colorMappingReady, setColorMappingReady] = useState(false);
-  const productosFiltrados = gastosData.filter((item) => item.tipo_de_gasto === tipo_de_gasto);
-
-  const uniqueCategories = [...new Set(productosFiltrados.map((item) => item.producto))];
-
-  useEffect(() => {
-    const colorMapping1 = {};
-    uniqueCategories.forEach((category) => {
-      colorMapping1[category] = getRandomColor();
-    });
-    setColorMapping(colorMapping1);
-    setColorMappingReady(true);
+  const [datos,setdatos]=useState('');
+  useEffect( () => {
+    obtenerDatos(); // Llamada a la función para obtener los datos de gastos
+    setTimeout(() => {
+      setShowPage(true);
+    }, 1000);
   }, []);
+  const obtenerDatos = async () => {
+    try {
+      const response = await gastos(); 
+      
+      const datosFiltrados = response.data.filter((item) => item.tipo_de_gasto === tipo_de_gasto);
 
-  useEffect(() => {
-    if (colorMappingReady) {
-      const chartData = productosFiltrados.map((item) => ({
-        value: item.valor,
-        label: item.producto,
-        color: colorMapping[item.producto],
-      }));
-      setChartData(chartData);
-      setTimeout(() => {
-        setShowPage(true);
-      }, 500);
-    }
-  }, [colorMappingReady]);
-
+      setdatos(datosFiltrados);
+      datosFiltrados.forEach((item) => {
+        colorMapping[item.producto] = getRandomColor();
+      });
+      setColorMapping({ ...colorMapping });
+      setColorMappingReady(true);
+      setTimeout(()=>{
+        const chartData = datosFiltrados.map((item) => ({
+          value: item.valor,
+          label: item.producto,
+          color: colorMapping[item.producto],
+        }));
+        setChartData(chartData);
+      },1000)
+      
+      }catch{
+      console.error('Error al obtener datos de gastos:', error);
+    }};
   return (
     <View className="flex-1 bg-teal-600">
       <Animatable.View animation="fadeInLeft" delay={500} className="mt-14 mb-8 pl-5">
@@ -75,8 +78,8 @@ export function ProductsListScreen({ route }) {
             />
           </View>
           <FlatList
-            data={productosFiltrados}
-            keyExtractor={(item) => item.id}
+            data={datos}
+            keyExtractor={(item, index) => item.id || index.toString()}
             renderItem={({ item }) => (
               <TouchableOpacity>
                 <Card

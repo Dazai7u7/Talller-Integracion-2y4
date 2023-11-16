@@ -4,7 +4,7 @@ import { useNavigation,useRoute  } from "@react-navigation/native";
 import { StackTypes } from "../../routes";
 import * as Animatable from "react-native-animatable";
 import {Picker} from '@react-native-picker/picker'
-import { Actualizar_gasto,Obtener_gasto } from '../../API/api';
+import { Actualizar_gasto,Obtener_gasto,presupuestos,gastos } from '../../API/api';
 
 
 
@@ -13,18 +13,38 @@ export function Editar_gasto() {
   const [error, setError] = useState(null);
   const [producto, setProduct] = useState("");
   const [descripcion, setDescription] = useState("");
-  const [valor, setValue] = useState(null);
+  const [valor, setValue] = useState("");
   const [tipo_de_gasto, setExpenseType] = useState("Comida"); 
+  const [presupuesto, setpresupuesto]=useState("")
   const route = useRoute();
   const { id } = route.params;
   useEffect(() => {
     async function fetchGastos() {
       try {
+        // Obtiene el presupuesto
+        const presupuestoResponse = await presupuestos();
+        const presupuestoData = presupuestoResponse.data;
+
+        // Obtiene los gastos
+        const gastosResponse = await gastos();
+        const gastosData = gastosResponse.data;
+
+        // Calcula la suma de los valores de los gastos
+        const totalGastos = gastosData.reduce((total, gasto) => total + gasto.valor, 0);
+
+        // Calcula la suma de todos los presupuestos
+        const totalPresupuestos = presupuestoData.reduce((total, presupuesto) => total + presupuesto.presupuesto, 0);
+
+        // Resta los gastos al total de presupuestos
+        const nuevoTotalPresupuestos = totalPresupuestos - totalGastos;
+        // Actualiza el estado con el nuevo total de presupuestos
+        
         const response = await Obtener_gasto(id); 
-        console.log(response.data)
+        setpresupuesto(nuevoTotalPresupuestos+response.data.valor);
+
+        setValue(response.data.valor)
         setProduct(response.data.producto)
         setDescription(response.data.descripcion)
-        setValue(response.data.valor)
         setExpenseType(response.data.tipo_de_gasto)  
       } catch (error) {
         console.log("Error: " + error);
@@ -40,15 +60,16 @@ export function Editar_gasto() {
         setError('Por favor, complete todos los campos.');
         return;
       }
-      const fecha=new Date();
-      const updatedData = {
-        producto: producto, // Nuevo valor para el campo 'producto'
-        descripcion: descripcion, // Nuevo valor para el campo 'descripcion'
-        valor: valor, // Nuevo valor para el campo 'valor'
-        tipo_de_gasto: tipo_de_gasto, // Nuevo valor para el campo 'tipo_de_gasto'
-        fecha:fecha,
-      };
       try {
+        if(valor<=presupuesto){
+        const fecha=new Date();
+        const updatedData = {
+          producto: producto, // Nuevo valor para el campo 'producto'
+          descripcion: descripcion, // Nuevo valor para el campo 'descripcion'
+          valor: valor, // Nuevo valor para el campo 'valor'
+          tipo_de_gasto: tipo_de_gasto, // Nuevo valor para el campo 'tipo_de_gasto'
+          fecha:fecha,
+        };
         const response = await Actualizar_gasto(id, updatedData);
         if (response.status === 200) {
           console.log('Gasto Actualizado:', response.data);
@@ -56,6 +77,10 @@ export function Editar_gasto() {
         } else {
           setError('Error en el registro: ' + response);
         }
+      }else {
+        // Expense amount exceeds the budget, set an error message
+        setError('El gasto supera el presupuesto establecido.');
+      }
       } catch (error) {
         setError('Error en el registro: ' + error.message);
       }
@@ -82,12 +107,12 @@ export function Editar_gasto() {
             />
             <TextInput
               placeholder="Valor"
-              value={valor}
+              keyboardType="numeric"
+              value={valor === null ? '' : valor.toString()} 
               onChangeText={(text) => {
                 const numericValue = parseFloat(text); // Convierte la cadena en un número decimal
                 setValue(numericValue); // Actualiza el estado con el valor numérico
               }}
-              keyboardType="numeric"
               style={{ borderBottomWidth: 1, borderColor: "gray", marginBottom: 12, fontSize: 20, padding: 8 }}
             />
             <Text>Tipo de Producto:</Text>

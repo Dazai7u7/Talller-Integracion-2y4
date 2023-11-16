@@ -15,6 +15,7 @@ import { Administrar_gastos } from "../pages/Administrar_gastos";
 import { Administrar_presupuesto } from "../pages/Administrar_presupuesto";
 import { Actualizar_gastos } from "../pages/Actualizar_gastos";
 import { Editar_gasto } from "../pages/Editar_gastos";
+import {Editar_presupuesto} from "../pages/Editar_presupuesto"
 const Stack = createNativeStackNavigator();
 type StackNavigation = {
   Welcome: undefined;
@@ -29,6 +30,7 @@ type StackNavigation = {
   Administrar_presupuesto:undefined;
   Actualizar_gastos:undefined;
   Editar_gasto:undefined;
+  Editar_presupuesto:undefined;
 };
 export type StackTypes = NativeStackNavigationProp<StackNavigation>;
 export function Routes() {
@@ -92,6 +94,11 @@ export function Routes() {
       <Stack.Screen
         name="Editar_gasto"
         component={Editar_gasto}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="Editar_presupuesto"
+        component={Editar_presupuesto}
         options={{ headerShown: false }}
       />
     </Stack.Navigator>

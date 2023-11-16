@@ -2,10 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { View, Text, FlatList, TouchableOpacity } from 'react-native';
 import * as Animatable from 'react-native-animatable';
 import { useNavigation } from "@react-navigation/native";
-import gastosData from '../utils/expenses';
 import { Card, CardProps } from '../../components/Card';
 import { PieChart } from "react-native-gifted-charts";
-import {token,gastos,ingresarGasto} from '../../API/api.js';
+import { gastos } from '../../API/api.js';
 
 function getRandomColor() {
   const letters = '0123456789ABCDEF';
@@ -15,88 +14,99 @@ function getRandomColor() {
   }
   return color;
 }
-const colorMapping = {};
-
-const uniqueCategories = [...new Set(gastosData.map((item) => item.tipo_de_gasto))];
-
-uniqueCategories.forEach((category) => {
-  colorMapping[category] = getRandomColor();
-});
 
 export function FinancialAnalysis() {
-  const [filteredData, setFilteredData] = useState<CardProps[]>([]);
+  const [filteredData, setFilteredData] = useState([]);
   const navigation = useNavigation<StackTypes>();
   const [selectedSegment, setSelectedSegment] = useState(null);
   const [chartData, setChartData] = useState([]);
-  const [showPage, setShowPage] = useState(false); 
-  useEffect(() => {
+  const [showPage, setShowPage] = useState(false);
+  const [colorMapping, setColorMapping] = useState({});
+  const [colorMappingReady, setColorMappingReady] = useState(false);
+  const [datos,setdatos]=useState('');
+  useEffect( () => {
+    obtenerDatos(); // Llamada a la función para obtener los datos de gastos
     setTimeout(() => {
       setShowPage(true);
     }, 500);
   }, []);
-
-  useEffect(() => {
+    const obtenerDatos = async () => {
+      try {
+        const response = await gastos(); // Reemplaza con tu función para obtener los datos desde el backend
+       
+        const datosAgrupados = response.data.reduce((acumulador, item) => {
+          const tipoDeGasto = item.tipo_de_gasto;
+          const valor = item.valor;
     
-      const chartData = filteredData.map((item) => ({
-        value: item.valor,
-        label: item.tipo_de_gasto,
-        color: colorMapping[item.tipo_de_gasto],
-      }));
-      setChartData(chartData);
+          // Si ya existe una entrada para este tipo de gasto, suma el valor
+          if (acumulador[tipoDeGasto]) {
+            acumulador[tipoDeGasto].valor += valor;
+          } else {
+            // Si no existe, crea una nueva entrada
+            acumulador[tipoDeGasto] = {
+              tipo_de_gasto: tipoDeGasto,
+              valor: valor,
+            };
+          }
+    
+          return acumulador;
+        }, {});
+    
+        // Convierte el objeto de datos agrupados en un array
+        const datosFiltrados = Object.values(datosAgrupados);
+        setdatos(datosFiltrados)
+        datosFiltrados.forEach((item) => {
+          colorMapping[item.tipo_de_gasto] = getRandomColor();
+        });
+        setColorMapping({ ...colorMapping });
+        setColorMappingReady(true);
+        setTimeout(()=>{
+          const chartData = datosFiltrados.map((item) => ({
+            value: item.valor,
+            label: item.tipo_de_gasto,
+            color: colorMapping[item.tipo_de_gasto],
+          }));
+          setChartData(chartData);
+        },1000)
+        
+        }catch{
+        console.error('Error al obtener datos de gastos:', error);
+      }};
 
-      const groupedData = gastosData.reduce((result, item) => {
-        const existingItem = result.find((x) => x.tipo_de_gasto === item.tipo_de_gasto);
-        if (existingItem) {
-          existingItem.valor += item.valor;
-        } else {
-          result.push({ ...item });
-        }
-        return result;
-      }, [] as CardProps[]);
-
-      setFilteredData(groupedData);
-  }, [showPage]);
 
   const handleCardPress = (tipo_de_gasto) => {
     setSelectedSegment(tipo_de_gasto);
   };
-  const nuevoGasto = {
-    producto: 'Ejemplo de Producto',
-    descripcion: 'Descripción de ejemplo',
-    valor: 50.0,
-    tipo_de_gasto: 'Alimentos',
-    fecha: new Date(), 
-  };
+
   return (
     <View className="flex-1 bg-teal-600">
       <Animatable.View animation="fadeInLeft" delay={500} className="mt-14 mb-8 pl-5">
         <Text className="text-white text-2xl font-bold">Analisis de mis gastos</Text>
       </Animatable.View>
+      {showPage && (
       <Animatable.View animation="fadeInUp" className="bg-white rounded-tl-2xl rounded-tr-2xl p-5 flex-1">
-      <View className="w-3/5 h-2/5 mx-auto">
+        <View className="w-3/5 h-2/5 mx-auto">
           <PieChart
-          data={chartData}
-          donut
-          //showText
-          showValuesAsLabels
-          showTextBackground
-          textBackgroundColor="#333"
-          textBackgroundRadius={22}
-          textColor="white"
-          textSize={16}
-          fontWeight="bold"
-          strokeWidth={5}
-          strokeColor="#333"
-          innerCircleBorderWidth={5}
-          innerCircleBorderColor="#333"
-          focusOnPress
-
-          showGradient
+            data={chartData}
+            donut
+            showValuesAsLabels
+            showTextBackground
+            textBackgroundColor="#333"
+            textBackgroundRadius={22}
+            textColor="white"
+            textSize={16}
+            fontWeight="bold"
+            strokeWidth={5}
+            strokeColor="#333"
+            innerCircleBorderWidth={5}
+            innerCircleBorderColor="#333"
+            focusOnPress
+            showGradient
           />
         </View>
         <FlatList
-          data={filteredData}
-          keyExtractor={(item) => item.id}
+          data={datos}
+          keyExtractor={(item, index) => item.id || index.toString()}
           renderItem={({ item }) => (
             <TouchableOpacity>
               <Card
@@ -111,11 +121,8 @@ export function FinancialAnalysis() {
           )}
           showsVerticalScrollIndicator={false}
         />
-        <TouchableOpacity onPress={()=>gastos()}>
-          <Text>A</Text>
-        </TouchableOpacity>
-        
       </Animatable.View>
+      )}
     </View>
   );
 }
