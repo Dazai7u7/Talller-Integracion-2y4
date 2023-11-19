@@ -15,7 +15,12 @@ function PaginaLogin() {
   } = useForm();
 
   //obtencion de funciones de autenticacion
-  const { signin, errors: LoginErrors } = useAuth();
+  const { signin, isAuthenticated, errors: LoginErrors } = useAuth();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (isAuthenticated) navigate('/perfil-gastos');
+  }, [isAuthenticated]);
 
   //envio de datos
   const onSubmit = handleSubmit((data) => {

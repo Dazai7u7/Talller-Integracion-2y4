@@ -12,7 +12,7 @@ function PaginaPerfilGastos() {
     // Realiza una solicitud a tu API para obtener datos mensuales
     // Reemplaza la URL con la URL de tu propia API
     axios
-      .get(`https://tu-api.com/mensual?mes=${selectedMonth}`)
+      .get(`http://localhost:3000/mensual?mes=${selectedMonth}`)
       .then((response) => {
         setMonthlyData(response.data);
       })
@@ -63,8 +63,6 @@ function PaginaPerfilGastos() {
             ))}
           </ul>
         </div>
-
-        
       </div>
 
       <div>
