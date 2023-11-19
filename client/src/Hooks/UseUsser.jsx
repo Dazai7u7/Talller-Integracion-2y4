@@ -5,11 +5,11 @@ export function useUsser(){
 
     //Contexto de autenticación
 
-    const {isAuthenticated, login} = useContext(AuthContext)
+    const {isAuthenticated, signin} = useContext(AuthContext)
 
     return{
         isLogged: isAuthenticated,
-        login
+        signin
     };
 }
 
