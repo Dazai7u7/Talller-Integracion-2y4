@@ -11,12 +11,11 @@ export function Editar_presupuesto() {
   const [error, setError] = useState(null);
   const [presupuesto, setpresupuesto] = useState("");
   const route = useRoute();
-  const { id, onGoBack } = route.params;
+  const { id } = route.params;
   useEffect(() => {
     async function fetchGastos() {
       try {
         const response = await Obtener_Presupuesto(id); 
-        console.log(response.data)
         setpresupuesto(response.data.presupuesto)
       } catch (error) {
         console.log("Error: " + error);
@@ -38,9 +37,9 @@ export function Editar_presupuesto() {
       try {
         const response = await Actualizar_Presupuesto(id, updatedData);
         if (response.status === 200) {
-          console.log('Presupuesto Actualizado:', response.data);
-          onGoBack();
-          navigation.goBack();
+          console.log('Presupuesto Actualizado');
+          //onGoBack();
+          navigation.navigate("home");
         } else {
           setError('Error en el registro: ' + response);
         }

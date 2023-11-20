@@ -24,28 +24,32 @@ export function ProductsListScreen({ route }) {
     obtenerDatos(); // Llamada a la función para obtener los datos de gastos
     setTimeout(() => {
       setShowPage(true);
-    }, 1000);
+    }, 2000);
   }, []);
   const obtenerDatos = async () => {
     try {
+
       const response = await gastos(); 
       
       const datosFiltrados = response.data.filter((item) => item.tipo_de_gasto === tipo_de_gasto);
-
+      
       setdatos(datosFiltrados);
       datosFiltrados.forEach((item) => {
         colorMapping[item.producto] = getRandomColor();
       });
       setColorMapping({ ...colorMapping });
-      setColorMappingReady(true);
+      
+
       setTimeout(()=>{
         const chartData = datosFiltrados.map((item) => ({
           value: item.valor,
           label: item.producto,
           color: colorMapping[item.producto],
         }));
+        
         setChartData(chartData);
-      },1000)
+      },1500)
+      
       
       }catch{
       console.error('Error al obtener datos de gastos:', error);

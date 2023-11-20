@@ -1,7 +1,7 @@
 // src/API/api.js
 import axios from 'axios';
 import {checkToken} from './token.js'
-const BASE_URL = 'http://192.168.0.11:3000/api';
+const BASE_URL = 'https://backend-gastos.onrender.com/api';
 
 const axiosInstance = axios.create({
   baseURL: BASE_URL,

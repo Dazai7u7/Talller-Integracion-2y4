@@ -86,5 +86,5 @@ const styles = StyleSheet.create({
   container: { flex: 1, padding: 16, paddingTop: 30, backgroundColor: '#fff' },
   head: { height: 40, backgroundColor: '#f1f8ff' },
   row: { flexDirection: 'row', backgroundColor: '#FFF1C1' },
-  text: { margin: 6 },
+  text: { margin: 6 }, // Cambia esto a un objeto
 });

@@ -64,7 +64,7 @@ export function Administrar_presupuesto() {
   };
 
   const handleActualizar = (id) => {
-    navigation.navigate("Editar_presupuesto", { id: id, onGoBack: () => setRefresh(!refresh) });
+    navigation.navigate("Editar_presupuesto", { id: id});
   };
 
   const handleEliminar = async (id) => {

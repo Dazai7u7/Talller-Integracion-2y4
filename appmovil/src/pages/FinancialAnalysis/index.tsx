@@ -28,7 +28,7 @@ export function FinancialAnalysis() {
     obtenerDatos(); // Llamada a la función para obtener los datos de gastos
     setTimeout(() => {
       setShowPage(true);
-    }, 500);
+    }, 1000);
   }, []);
     const obtenerDatos = async () => {
       try {
