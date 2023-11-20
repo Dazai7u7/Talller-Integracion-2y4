@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useAuth } from "../context/AuthContext";
 import { useNavigate, Link } from "react-router-dom";
+
 import imgReg from "../Imagenes/imgReg.png";
 import HeaderNoLog from '../Complements/HeaderNoLog.jsx';
 import FooterConten from '../Complements/Footer.jsx';

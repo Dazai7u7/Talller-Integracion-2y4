@@ -19,7 +19,7 @@ function PaginaLogin() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (isAuthenticated) navigate('/perfil-gastos');
+    if (isAuthenticated) navigate('/agregar-gasto');
   }, [isAuthenticated]);
 
   //envio de datos
