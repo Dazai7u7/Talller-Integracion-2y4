@@ -4,12 +4,16 @@ const { crearTokenAcceso } = require('../libs/jwt.js'); // Cambio en la importac
 const jwt = require('jsonwebtoken');
 const TOKEN_SECRET = require('../config.js');
 
+
+//Register
+
 const registro = async (req, res) => {
     const { nombre, email, password } = req.body; //Extracción de datos
 
     try {
 
-        const userFound = await usuario.findOne({ email });
+        const userFound = await usuario.findOne({ email }); //busqueda de usuario por correo
+
         //verificacion de correo
         if (userFound) {
             return res.status(400).json({ message: ["El correo ya está en uso"] });
@@ -18,7 +22,6 @@ const registro = async (req, res) => {
         const passwordHash = await bcrypt.hash(password, 10); //encriptacion de contraseña
 
         const nuevoUsuario = new usuario({ //creacion de objeto usuario
-            
             nombre,
             email,
             password: passwordHash,
@@ -31,43 +34,51 @@ const registro = async (req, res) => {
         //creacion de cookie para mantener la informacion del usuario
         res.cookie("token", token);
         
-        res.json(formatUserData(nuevoUsuario));
+        res.json(formatUserData(nuevoUsuario)); //Envio de datos formateados del nuevo usuario al cliente
     } catch (error) {
         handleRegistrationError(res, error);
     }
 };
 
+//Login
+
 const login = async (req, res) => {
-    const { email, password } = req.body;
+    const { email, password } = req.body; //extraccion de datos
 
     try {
-        const usuarioEncontrado = await usuario.findOne({ email });
 
+        //Busqueda de usuario por correo
+        const usuarioEncontrado = await usuario.findOne({ email });
         if (!usuarioEncontrado) {
             return res.status(400).json({ message: "Usuario no encontrado" });
         }
 
+        //Comparacion de contraseña
         const contrasenaValida = await bcrypt.compare(password, usuarioEncontrado.password);
-
         if (!contrasenaValida) {
             return res.status(400).json({ message: "Contraseña incorrecta" });
         }
 
-        const token = crearTokenAcceso({ id: usuarioEncontrado._id });
+        const token = crearTokenAcceso({ id: usuarioEncontrado._id }); //creacion de token
 
-        res.cookie("token", token);
-        res.json(formatUserData(usuarioEncontrado));
+        res.cookie("token", token); //token para la mantension de sesion del usuario
+
+        res.json(formatUserData(usuarioEncontrado)); //Respuesta con datos formateados del usuario
+
     } catch (error) {
         handleLoginError(res, error);
     }
 };
 
+//Logout
+
 const logout = (req, res) => {
-    res.cookie("token", "", {
-        expires: new Date(0)
+    res.cookie("token", "", { //establecimiento de nueva cookie con valor vacio
+        expires: new Date(0) //Fecha de expiracion
     });
-    res.sendStatus(200);
+    res.sendStatus(200); //Indicacion del cierre de sesión
 };
+
 
 const profile = async (req, res) => {
     try {

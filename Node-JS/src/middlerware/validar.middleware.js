@@ -1,6 +1,6 @@
 const validarSchema = (schema) => (req, res, next) => {
     try {
-        schema.parse(req.body);
+        schema.parse(req.body); //Comparacion de datos con el esquema
         next();
     } catch (error) {
         return res

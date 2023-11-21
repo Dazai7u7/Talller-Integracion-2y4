@@ -1,3 +1,5 @@
+//Esquema de validacion de datos de registro y de login
+
 const z = require('zod');
 
 const registroSchema = z.object({

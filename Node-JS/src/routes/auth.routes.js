@@ -13,6 +13,6 @@ router.post("/logout", logout);
 
 router.get("/verify", verifyToken);
 
-router.get("/profile", autRequerida, profile);
+router.get("/profile", autRequerida, profile); 
 
 module.exports = router;

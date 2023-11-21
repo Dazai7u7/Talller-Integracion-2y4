@@ -53,7 +53,7 @@ function PaginaLogin() {
         </div>
         
 
-        <div className="bg-white sm:mt-8 sm:mx-auto lg:mt-0 lg:mx-0 max-w-md w-full p-10 rounded-md shadow-lg animate-slide-left">
+        <div className="bg-white sm:mt-8 sm:mx-auto lg:mt-0 lg:mx-0 max-w-md w-full p-10 rounded-md shadow animate-slide-left">
           {LoginErrors.map((error, i) => (
             <div className="bg-red-500 p-2 text-white text-center" key={i}>
               {error}

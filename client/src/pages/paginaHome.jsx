@@ -28,7 +28,8 @@ function PaginaHome() {
     
       </header>
 
-      <div className="mt-20">
+      <div className="mt-20 mx-8 flex justify-between">
+
         <div className='flex flex-col xl:flex-row md:flex-col'>
 
           <div className="sm:p-4 md:w-full xl:mx-8  xl:w-1/2">

@@ -28,43 +28,44 @@ function PaginaPerfilGastos() {
       <header>
         <HeaderLog/>
       </header>
-      <div className=" flex h-[calc(100vh-100px)] items-center justify-center">
+      <div>
+        <div className=" flex items-center justify-end mt-8">
 
-        <div className="bg-white max-w-md p-10 rounded-md">
-          <h1 className="text-black text-2xl font-bold">Gastos mensuales</h1>
+          <div className="bg-white max-w-md p-10 rounded-md">
+            <h1 className="text-black text-2xl font-bold">Gastos mensuales</h1>
 
-          <label className="text-black" htmlFor="monthSelector">
-            Selecciona un mes:{" "}
-          </label>
-          <select
-            id="monthSelector"
-            value={selectedMonth}
-            onChange={(e) => setSelectedMonth(e.target.value)}
-            className="text-black border p-2 mb-2 border-black"
-          >
-            <option value="Enero">Enero</option>
-            <option value="Febrero">Febrero</option>
-            <option value="Marzo">Marzo</option>
-            <option value="Abril">Abril</option>
-            <option value="Mayo">Mayo</option>
-            <option value="Junio">Junio</option>
-            <option value="Julio">Julio</option>
-            <option value="Agosto">Agosto</option>
-            <option value="Septiembre">Septiembre</option>
-            <option value="Octubre">Octubre</option>
-            <option value="Noviembre">Noviembre</option>
-            <option value="Diciembre">Diciembre</option>
-          </select>
+            <label className="text-black" htmlFor="monthSelector">
+              Selecciona un mes:{" "}
+            </label>
+            <select
+              id="monthSelector"
+              value={selectedMonth}
+              onChange={(e) => setSelectedMonth(e.target.value)}
+              className="text-black border p-2 mb-2 border-black"
+            >
+              <option value="Enero">Enero</option>
+              <option value="Febrero">Febrero</option>
+              <option value="Marzo">Marzo</option>
+              <option value="Abril">Abril</option>
+              <option value="Mayo">Mayo</option>
+              <option value="Junio">Junio</option>
+              <option value="Julio">Julio</option>
+              <option value="Agosto">Agosto</option>
+              <option value="Septiembre">Septiembre</option>
+              <option value="Octubre">Octubre</option>
+              <option value="Noviembre">Noviembre</option>
+              <option value="Diciembre">Diciembre</option>
+            </select>
 
-          <h2 className="text-black">Datos para {selectedMonth}</h2>
-          <ul>
-            {monthlyData.map((data, index) => (
-              <li key={index}>{data}</li>
-            ))}
-          </ul>
+            <h2 className="text-black">Datos para {selectedMonth}</h2>
+            <ul>
+              {monthlyData.map((data, index) => (
+                <li key={index}>{data}</li>
+              ))}
+            </ul>
+          </div>
         </div>
       </div>
-
       <div>
         <FooterConten />
       </div>
