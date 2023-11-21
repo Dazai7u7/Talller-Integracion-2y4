@@ -75,7 +75,7 @@ function PaginaRegistro() {
           </div>
         </div>
 
-        <div className="to-transparent bg-white sm:mx-auto sm:mt-8 lg:mt-0 lg:mx-0 max-w-md w-full shadow p-10 rounded-md border mx-3 animate-slide-left">
+        <div className=" bg-white sm:mx-auto sm:mt-8 lg:mt-0 lg:mx-0 max-w-md w-full shadow p-10 rounded-md border mx-3 animate-slide-left">
           {RegistroErrors.map((error, i) => (
             <div className="bg-red-500 p-2 text-white" key={i}>
               {error}

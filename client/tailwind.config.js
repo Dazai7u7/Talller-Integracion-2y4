@@ -18,6 +18,19 @@ export default {
             transform: 'translateX(0rem)' 
           },  
         },
+
+        'slide-left-to-right2':{
+          '0%':{
+            transform: 'translateX(23rem)'
+          },
+          '50%': {
+            transform: 'translateX(-5rem)' 
+          },
+          '100%': {
+            transform: 'translateX(0rem)' 
+          },  
+        },
+
         'slide-top':{
           '0%':{
             transform: 'translateY(5rem)',
@@ -61,6 +74,7 @@ export default {
       },
       animation: {
         'slide-left': 'slide-left-to-right 1s ease-in-out',
+        'slide-left2': 'slide-left-to-right2 1.5s ease-in-out',
         'slide-top': 'slide-top 0.8s ease-in-out',
         'slide-top2': 'slide-top 1s ease-in-out',
         'slide-top3': 'slide-top 1.2s ease-in-out',
