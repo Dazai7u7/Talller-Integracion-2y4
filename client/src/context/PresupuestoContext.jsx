@@ -21,7 +21,6 @@ export function PresupuestoProvider({ children }) {
     try {
       const res = await crearPresupuestoRequest(presupuesto);
       console.log(res);
-      // Actualizar el estado local con el nuevo presupuesto
       setPresupuestos([...presupuestos, res.data]);
     } catch (error) {
       console.error("Error al crear presupuesto:", error);

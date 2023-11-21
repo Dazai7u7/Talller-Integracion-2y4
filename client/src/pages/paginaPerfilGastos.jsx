@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 
+
+import axios from 'axios';
 import HeaderLog from '../Complements/HeaderLog.jsx';
 import FooterConten from '../Complements/Footer.jsx';
+import LinesChart from '../Complements/LinesChart.jsx';
 
 function PaginaPerfilGastos() {
   const [monthlyData, setMonthlyData] = useState([]);
@@ -28,8 +30,11 @@ function PaginaPerfilGastos() {
       <header>
         <HeaderLog/>
       </header>
+
+      
       <div>
-        <div className=" flex items-center justify-end mt-8">
+        
+        <div className=" flex items-center flex-col justify-between mt-8">
 
           <div className="bg-white max-w-md p-10 rounded-md">
             <h1 className="text-black text-2xl font-bold">Gastos mensuales</h1>
@@ -65,6 +70,14 @@ function PaginaPerfilGastos() {
             </ul>
           </div>
         </div>
+
+        <div className='mx-auto mt-8'>
+            <p className="m-2 text-center text-black"><b>Gastos</b></p>
+          <div className="bg-white rounded-md mx-auto px-2 border-2 border-primary" style={{width:"450px", height:"230px"}}>
+            <LinesChart />
+          </div>
+        </div>
+
       </div>
       <div>
         <FooterConten />
