@@ -12,11 +12,12 @@ export const useAuth = () => {
     return context;
 };
 
-export const AuthProvider = ({ children }) => {
+export const AuthProvider = ({ children }) => { 
     const [usuario, setUsuario] = useState(null);
     const [isAuthenticated, setIsAuthenticated] = useState(false);
     const [errors, setErrors] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [token, setToken] = useState();
 
     const signup = async (usuario) => {
         try {
@@ -67,9 +68,9 @@ export const AuthProvider = ({ children }) => {
 
     useEffect(() => {
         async function checkLogin() {
-            const cookies = Cookies.get();
-
-            if (!cookies.token) {
+            const cookies = Cookies.get(token);
+    
+            if (!cookies || !cookies.token) {
                 setIsAuthenticated(false);
                 setLoading(false);
                 return setUsuario(null);
