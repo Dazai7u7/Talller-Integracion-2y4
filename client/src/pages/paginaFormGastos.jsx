@@ -70,14 +70,14 @@ function PaginaFormGastos() {
                 className="w-full bg-white border border-black text-black px-4 py-2 rounded-md  my-2focus:outline-teal-400 mt-4"
                 autoFocus
               />
-              <textarea
-                rows="3"
+              <input 
+                type="text"
                 placeholder="Descripcion"
                 {...register('descripcion')}
                 className="w-full bg-white border border-black text-black px-4 py-2 rounded-md my-2     focus:outline-teal-400"
-              ></textarea>
+              />
               <input
-                type="Number"
+                type="number"
                 placeholder="valor"
                 {...register('valor')}
                 className="w-full bg-white border border-black text-black px-4 py-2 rounded-md my-2       focus:outline-teal-400"
