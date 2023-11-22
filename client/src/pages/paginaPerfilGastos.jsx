@@ -1,6 +1,4 @@
 import React, { useState, useEffect } from 'react';
-
-
 import axios from 'axios';
 import HeaderLog from '../Complements/HeaderLog.jsx';
 import FooterConten from '../Complements/Footer.jsx';
@@ -9,6 +7,7 @@ import LinesChart from '../Complements/LinesChart.jsx';
 function PaginaPerfilGastos() {
   const [monthlyData, setMonthlyData] = useState([]);
   const [selectedMonth, setSelectedMonth] = useState('Selecciona el mes');
+  const [usuario, setUsuario] = useState(null);
 
   useEffect(() => {
     // Realiza una solicitud a tu API para obtener datos mensuales
@@ -23,22 +22,39 @@ function PaginaPerfilGastos() {
       });
   }, [selectedMonth]);
 
+  useEffect(() => {
+    axios
+      .get('/profile')
+      .then((response) => {
+        setUserData(response.data);
+      })
+      .catch((error) => {
+        console.error('Error al obtener datos del usuario:', error);
+      });
+  }, []);
+
   return (
-
     <div className='bg-slate-200'>
-
       <header>
-        <HeaderLog/>
+        <HeaderLog />
       </header>
 
-      
       <div>
-        
-        <div className=" flex items-center flex-col justify-between mt-8">
+        <div className="flex items-center flex-col justify-between mt-8">
+          <div className="bg-white max-w-md p-10 rounded-md">
+            <h1 className="text-black text-2xl font-bold">Perfil de Usuario</h1>
+            {usuario ? (
+              <div>
+                <p className="text-black">Nombre: {usuario.nombre}</p>
+                <p className="text-black">Email: {usuario.email}</p>
+              </div>
+            ) : (
+              <p className="text-black">Cargando datos del usuario...</p>
+            )}
+          </div>
 
           <div className="bg-white max-w-md p-10 rounded-md">
             <h1 className="text-black text-2xl font-bold">Gastos mensuales</h1>
-
             <label className="text-black" htmlFor="monthSelector">
               Selecciona un mes:{" "}
             </label>
@@ -61,7 +77,6 @@ function PaginaPerfilGastos() {
               <option value="Noviembre">Noviembre</option>
               <option value="Diciembre">Diciembre</option>
             </select>
-
             <h2 className="text-black">Datos para {selectedMonth}</h2>
             <ul>
               {monthlyData.map((data, index) => (
@@ -72,13 +87,13 @@ function PaginaPerfilGastos() {
         </div>
 
         <div className='mx-auto mt-8'>
-            <p className="m-2 text-center text-black"><b>Gastos</b></p>
+          <p className="m-2 text-center text-black"><b>Gastos</b></p>
           <div className="bg-white rounded-md mx-auto px-2 border-2 border-primary" style={{width:"450px", height:"230px"}}>
             <LinesChart />
           </div>
         </div>
-
       </div>
+
       <div>
         <FooterConten />
       </div>
